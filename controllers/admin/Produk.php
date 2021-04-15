@@ -1397,7 +1397,7 @@ class Produk extends CI_Controller {
                 $update_2 = $this->db->set('produk_id',$detail->produk_id)->set('qty_receive',$addStokEdit)->set('perusahaan_id',$cmbPerusahaan)->set('gudang_id',$cmbGudang)->where('id',$detail->id)->update('produk_beli_detail');
                 $getIdPerusahaanGudang = $this->model_master->getPerusahaanGudangByGudang($detail->perusahaan_id,$detail->gudang_id)->row();
                 $getDataByPerusahaanGudang = $this->model_master->getStokPerusahaanGudangByProduk1($detail->produk_id,$getIdPerusahaanGudang->id);
-                if($getDataByPerusahaanGudang->num_rows() > 0){
+                if($getDataByPerusahaanGudang->num_rows() > null){
                     $stokDbApp = $getDataByPerusahaanGudang->row()->stok + $addStokEdit;
                    $insert = $this->db->set('stok',$stokDbApp)->where('id',$getDataByPerusahaanGudang->row()->id)->update('product_perusahaan_gudang');
                   //  echo "ada""<br>".$getDataByPerusahaanGudang->row()->id;
