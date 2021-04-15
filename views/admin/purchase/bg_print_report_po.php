@@ -9,7 +9,11 @@ if($jenis == "excel"){
 	header("Content-type: application/vnd-ms-excel");
 
 	// header("Content-Disposition: attachment; filename=export_report_po_".date('d_m_y').".xls");
+
+	//header("Content-Disposition: attachment; filename=export_report_po_".date('d_m_y'),strtotime('+0 day', strtotime($_SESSION['rick_auto']['bulan'])).".xls");
 	header("Content-Disposition: attachment; filename=export_report_po_".date("d_m_y",strtotime("+0 day", strtotime($_SESSION['rick_auto']['bulan']))).".xls");
+	//date("d_m_y",strtotime("+0 day", strtotime($_SESSION['rick_auto']['bulan'])))
+
 
 }
 
@@ -125,7 +129,7 @@ $tahun = date('Y');
 
 	                <th colspan='2' align='right'>No. PO</th>
 
-					<th colspan='2' align='center'>Status</th>
+	                <th colspan='2' align='center'>Status</th>
 
             	</tr>
 
@@ -151,20 +155,23 @@ $tahun = date('Y');
 
 	            	<td style='width:15%'><b>Description</b></td>
 
-					<td align='right'><b>".str_replace("PT.E","PT.ETC",$data->nonota)."</b></td>
-					<td align='right>";
-					if ($data->status == 0){
-						echo "<span class='label label-primary'>BARU</span>";
-					} elseif ($data->status_gudang == 0){
-						echo "<span class='label label-primary'>DIPROSES</span>";
-					} elseif ($data->status_gudang == 1) {
-							echo "<span class='label label-primary'>SELESAI</span>";
-					} elseif ($data->status_gudang == 2) {
-							echo "<span class='label label-primary'>DITOLAK</span>";
-					} else {
-							echo "<span class='label label-primary'>DIBATALKAN</span>";
-					}
-					"</td>
+	                <td align='right'><b>".$data->nonota."</b></td>
+
+	                <!--<td align='right'><b>".$data->status."</b></td>-->
+									<td align='right'>";
+									if ($data->status == 0){
+										echo "<span class='label label-primary'>BARU</span>";
+									} elseif ($data->status_gudang == 0){
+										echo "<span class='label label-primary'>DIPROSES</span>";
+									} elseif ($data->status_gudang == 1) {
+											echo "<span class='label label-primary'>SELESAI</span>";
+									} elseif ($data->status_gudang == 2) {
+											echo "<span class='label label-primary'>DITOLAK</span>";
+									} else {
+											echo "<span class='label label-primary'>DIBATALKAN</span>";
+									}
+									"</td>
+
 
 	            </tr>";$detailData = $this->model_purchase->getPurchaseDetailByPurchase($data->id);
 
@@ -174,8 +181,7 @@ $tahun = date('Y');
 
 	            foreach($detailData->result() as $detail){
 
-	            	$total_item = round($detail->price) * $detail->qty;
-	            	$total = $total + $total_item;
+	            	$total = $total + $detail->ttl_price;
 
 
 
@@ -187,9 +193,9 @@ $tahun = date('Y');
 
 	            		<td align='left'>".$detail->nama_produk."</td>
 
-	            		<td align='right'>".number_format(round($detail->price),2,',','.')."</td>
+	            		<td align='right'>".number_format(ceil($detail->price),2,',','.')."</td>
 
-	            		<td align='right'>".number_format(round($total_item),2,',','.')."</td>
+	            		<td align='right'>".number_format(ceil($detail->ttl_price),2,',','.')."</td>
 
 	            	</tr>
 
@@ -205,7 +211,7 @@ $tahun = date('Y');
 
 	            	<td align='right' colspan='2'><b>Total</b></td>
 
-	            	<td colspan='2' align='right'><b>".number_format(round($total),2,',','.')."</b></td>
+	            	<td colspan='2' align='right'><b>".number_format(ceil($total),2,',','.')."</b></td>
 
 	            	</tr>
 
@@ -221,7 +227,7 @@ $tahun = date('Y');
 
 		            	<td colspan='2' align='right'><h3><b>GRAND TOTAL</b></h3></td>
 
-		            	<td colspan='2' align='right'><h3><b>".number_format(round($grand_total),2,',','.')."</b></h3></td>
+		            	<td colspan='2' align='right'><h3><b>".number_format(ceil($grand_total),2,',','.')."</b></h3></td>
 
 		            </tr>
 

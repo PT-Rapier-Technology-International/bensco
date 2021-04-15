@@ -225,6 +225,7 @@ echo"
 	        		$total_pembayaran = $total_pembayaranx - $getInv->discount;
 
 	        		//$total_pembayaran = $total_pembayaran + $invoice->total ;
+	        		
 
 	        		$no++;
 
@@ -239,6 +240,7 @@ echo"
 	                	".date("d M Y",strtotime("+0 day", strtotime($invoice->dateorder)))."
 
                 	</td>
+
 
                 	<td style='font-size:13px; text-align:center;'>
 

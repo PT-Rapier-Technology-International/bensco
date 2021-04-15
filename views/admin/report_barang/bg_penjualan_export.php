@@ -59,5 +59,7 @@ if($_SESSION['rick_auto']['filter_penjualan_perusahaan'] == "" || $_SESSION['ric
 		<td>".$data->nama_kategori."</td>
 		<td>".$data->part_no."</td>
 		<td>".$data->qty_kirim." ".$data->satuan."</td>
+		<!--<td>".$data->input_qty." ".$data->satuan."</td>-->
+
 	</tr>";}?>
 </table>

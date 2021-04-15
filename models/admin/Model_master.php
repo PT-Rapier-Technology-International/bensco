@@ -142,6 +142,12 @@ class Model_master extends CI_Model {
 		return $this->db->get('master_provinsi');
 	}
 
+	// add function get all member() 2021-03-29 by Abdurahman
+	public function getAllMember() {
+		$this->db->select('*');
+		return $this->db->get('member');
+	}
+
 	public function getMemberBySingkatanDesc($singkatan){
 		$this->db->select('*');
 		$this->db->like('id',$singkatan);

@@ -4,9 +4,9 @@ echo"
 
 <div class='form-group has-feedback'>
 
-    <a href='".base_url("admin/invoice/export_barang_masuk/excel")."' target='_blank' class='btn bg-green'><i class=' icon-file-download2 position-left'></i>Export Excel</a> &nbsp;
+    <a href='".base_url("admin/invoice/export_barang_masuk/excel")."' target='_blank' class='btn bg-green'><i class=' icon-file-download2 position-left'></i>Export Excel</a> &nbsp; 
 
-    <a href='".base_url("admin/invoice/export_barang_masuk/pdf")."' target='_blank' class='btn btn-danger'><i class='icon-file-download position-left'></i>Export PDF</a> &nbsp;
+    <a href='".base_url("admin/invoice/export_barang_masuk/pdf")."' target='_blank' class='btn btn-danger'><i class='icon-file-download position-left'></i>Export PDF</a> &nbsp; 
 
     <a href='".base_url("admin/invoice/export_barang_masuk/print")."' target='_blank' class='btn btn-primary'><i class='icon-printer position-left'></i>Print</a>
 
@@ -43,12 +43,13 @@ echo"
 	";
 
 	$no = 0;
-  $temp = 0;
+	$temp = 0;
 	foreach($getData->result() as $data){
-    if ($data->note == "Adjusment" || $data->note == "adjusment"){
-      echo "";
-    } else {
-      $temp = $temp + $data->stock_input;
+		if($data->note == "Adjusment" || $data->note == "adjusment"){
+			
+			echo "";
+		} else{
+			$temp = $temp + $data->stock_input;
 		$no++;
 
 		echo"
@@ -88,16 +89,16 @@ echo"
 	</tr>";}}
 
 	echo"
-    <tr width='100%'>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td style='font-size:20px;'><b>Total</b></td>
-    <td></td>
-    <td colspan='1' style='font-size:20px; text-align:left;'><b>".$temp."</b></td> 
-    <td style='font-size: 20px;'><b>".$data->nama_satuan."</b></td>
-    </tr>
+		<tr width='100%'>
+		<td></td>
+		<td></td>	
+		<td></td>
+		<td></td>
+		<td style='font-size:20px;'><b>Total</b></td>
+		<td></td>
+		<td colspan='2' style='font-size:20px; text-align:left;'><b>".$temp." ".$data->nama_satuan."</b></td>
+		<td></td>
+		</tr>
 </table>
-
+	
 ";?>

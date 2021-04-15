@@ -25,7 +25,7 @@ echo"
                                 <input type='text' placeholder='Masukkan Nama Produk' class='form-control' id='nama_produk' name='nama_produk'>
                             </div>
             			</div>
-            			
+
             			<div class='form-group'>
 							<label class='col-lg-3 control-label'>Kode Produk Shadow</label>
 							<div class='col-lg-9'>

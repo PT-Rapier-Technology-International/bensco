@@ -26,7 +26,7 @@ echo"
 		<th>List Net</th>
 		<th>No. BO/PO</th>
 		<th>Status</th>
-	</tr>
+	</tr>		
 	";
 		$no = 0;
 		foreach($getPoBo->result() as $pobo){
@@ -42,7 +42,7 @@ echo"
 		<td>".$pobo->qty." ".$pobo->nama_satuan."</td>
 		<td align='right'>".number_format($pobo->price,0,',','.')."</td>
 		<td align='right'>".number_format($pobo->ttl_price,0,',','.')."</td>
-		<td>".str_replace("PT.E","PT.ETC",$pobo->notransaction)."</td>
+		<td>".$pobo->notransaction."</td>
 		<td>Belum Terkirim</td>
 	</tr>";
 		}
@@ -60,7 +60,7 @@ echo"
 		<td>".$po->qty." ".$po->satuan."</td>
 		<td align='right'>".number_format($po->price,0,',','.')."</td>
 		<td align='right'>".number_format($po->ttl_price,0,',','.')."</td>
-		<td>".str_replace("PT.E","PT.ETC",$po->nonota)."</td>
+		<td>".$po->nonota."</td>
 		<td>Terkirim</td>
 	</tr>";}
 		echo"

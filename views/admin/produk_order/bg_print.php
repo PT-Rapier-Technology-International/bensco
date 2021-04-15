@@ -10,7 +10,7 @@ echo "<p style='font-size:12px'>".date("d/m/Y"). "
 
 			margin: 0;
 
-			margin-left: 0.1cm;
+			margin-left: 0.1cm; 
 
 		}
 
@@ -22,7 +22,7 @@ echo "<p style='font-size:12px'>".date("d/m/Y"). "
 
 			padding-left: 1.0cm;
 
-			padding-right: 0.7cm;
+			padding-right: 0.7cm; 
 
 			padding-top: 1.1cm;
 
@@ -36,7 +36,7 @@ echo "<p style='font-size:12px'>".date("d/m/Y"). "
 	</style>
 
 	<h1 style='font-size:20px' align='center'><b>FORM ORDER PRODUK</b></h1>
-
+	
 
 	<table width='100%' cellspacing='0'>
 
@@ -107,7 +107,7 @@ echo "<p style='font-size:12px'>".date("d/m/Y"). "
 		<tr>
 
 	</table>
-
+	
 	<div class='table-responsive'>
 
 		<br>
@@ -121,8 +121,9 @@ echo "<p style='font-size:12px'>".date("d/m/Y"). "
 					<th>Produk</th>
 
 					<th class='col-sm-1'>Qty Order</th>
+					
+					<th class='col-sm-1'>Qty Kirim</th>
 
-					<th class='col-sm-1'>Qty Terima</th>
 				</tr>
 
 			</thead>
@@ -145,13 +146,15 @@ echo "<p style='font-size:12px'>".date("d/m/Y"). "
 
 					<!--<td align='center' style='font-size:14px'>".$detail->qty_receive." ".$detail->nama_satuan."</td>-->
 					<td align='center' style='font-size:14px'>";
-					if ($detail->qty_receive == "" || $detail->qty_receive == 0 || $detail->qty_receive == "0"){
+					//if ($detail->qty_receive == "" || $detail->qty_receive == 0 || $detail->qty_receive == "0"){
+					if ($detail->qty_receive < 0){
 						echo $detail->qty;
+					}else if ($detail->qty_receive == 0){
+						echo "0";
 					} else {
 						echo $detail->qty_receive;
 					}
 					echo"</td>
-					
 
 				</tr>";}echo"
 

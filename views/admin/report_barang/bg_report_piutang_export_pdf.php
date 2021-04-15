@@ -10,9 +10,9 @@
 
   @page {
 
-    size: auto;
+    size: auto;  
 
-    margin: 0;
+    margin: 0;  
 
   }
 
@@ -24,7 +24,7 @@
 
     padding-left: 1.3cm;
 
-    padding-right: 1.3cm;
+    padding-right: 1.3cm; 
 
     padding-top: 1.1cm;
 
@@ -88,7 +88,7 @@ foreach($getData->result() as $data){
 
 		<td>$no</td>
 
-		<td>".str_replace("PT.E","PT.ETC",$dataDetail->no_tt)."</td>
+		<td>".$dataDetail->no_tt."</td>
 
 		<td>".$dataDetail->member_name." - ".$dataDetail->kota_member."</td>
 
@@ -99,10 +99,10 @@ foreach($getData->result() as $data){
 		//$sisa = $sisa + $dataBayar->sisa;
 
 		$sisaa = $dataTotal->total_pembayaran - $dataBayarr->total_sudah_dibayar;
-
+		
 
 		if($dataBayar->jenis_pembayaran == "Giro" || $dataBayar->jenis_pembayaran == "Cek"){
-
+			
 			$sisa = $sisa + $dataTotal->total_pembayaran;
 			$s = $dataTotal->total_pembayaran;
 			$tanggal_cair = "<br>Tanggal Cair : ".date("d/m/Y",strtotime($dataBayar->liquid_date));
@@ -130,7 +130,7 @@ foreach($getData->result() as $data){
 
 	foreach($getDataDetailOri->result() as $dataDetailOri){
 
-	$sisaOri = $sisaOri + $dataDetailOri->total;
+	$sisaOri = $sisaOri + $dataDetailOri->total;	
 
 		$noo++;
 
@@ -168,7 +168,7 @@ foreach($getData->result() as $data){
 
 	</tr>
 
-<?php
+<?php 
 
 $totalSemuanyaa = $totalSemuanyaa + $totalSemuanya;
 

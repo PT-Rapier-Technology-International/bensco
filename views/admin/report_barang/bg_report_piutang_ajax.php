@@ -4,9 +4,9 @@ echo"
 
 <div class='form-group has-feedback'>
 
-    <a href='".base_url("admin/invoice/export_piutang/excel")."' target='_blank' class='btn bg-green'><i class=' icon-file-download2 position-left'></i>Export Excel</a> &nbsp;
+    <a href='".base_url("admin/invoice/export_piutang/excel")."' target='_blank' class='btn bg-green'><i class=' icon-file-download2 position-left'></i>Export Excel</a> &nbsp; 
 
-    <a href='".base_url("admin/invoice/export_piutang/pdf")."' target='_blank' class='btn btn-danger'><i class='icon-file-download position-left'></i>Export PDF</a> &nbsp;
+    <a href='".base_url("admin/invoice/export_piutang/pdf")."' target='_blank' class='btn btn-danger'><i class='icon-file-download position-left'></i>Export PDF</a> &nbsp; 
 
     <a href='".base_url("admin/invoice/export_piutang/print")."' target='_blank' class='btn btn-primary'><i class='icon-printer position-left'></i>Print</a>
 
@@ -65,21 +65,21 @@ foreach($getData->result() as $data){
 		$databayarDesc = $this->model_invoice->getPaymentTandaTerimaa($dataDetail->no_tt)->row();
 		$dataBayarr = $this->model_invoice->getTotalPaymentInvoiceByNott($dataDetail->no_tt)->row();
 		$dataTotal = $this->model_invoice->getPaymentTandaTerimaAsc($dataDetail->no_tt)->row();
-		$dataTotals = $this->model_invoice->getTotalPembayaranByNott($dataDetail->no_tt)->row();
+		$dataTotals = $this->model_invoice->getTotalPembayaranByNott($dataDetail->no_tt)->row(); 
 
 		$no++;
 
-		if($dataBayar->id_pembayaran == 1 || $dataBayar->id_pembayaran == 4){
+		if($dataBayar->id_pembayaran == 1 || $dataBayar->id_pembayaran == 4){	
 			$sisa = $sisa + $dataDetail->total;
 			$s = $dataDetail->total;
 			$tanggal_cair = "<br>Tanggal Cair : ".date("d/m/Y",strtotime($dataBayar->liquid_date));
-
+			
 
 		}else{
 			$sisa = $sisa + $dataDetail->sisa;
 			$s = $dataDetail->sisa;
 			$tanggal_cair = "";
-
+			
 		}
 
 
@@ -88,7 +88,7 @@ foreach($getData->result() as $data){
 			$tanggal_t = $dataBayar2->liquid_date;
 			$_SESSION['rick_auto']['tanggalfromrrps'] = date("Y-m-d",strtotime("+1 day",strtotime($_SESSION['rick_auto']['tanggalfromrrp'] )));
 			$tanggal_f = $_SESSION['rick_auto']['tanggalfromrrps'];
-
+			
 		}else{
 			if($dataBayar2s->num_rows() > 0){
 				$tanggal_t = $dataBayar2->payment_date;
@@ -100,12 +100,12 @@ foreach($getData->result() as $data){
 		}
 
 		if($tanggal_f > $tanggal_t){
-			if($databayarDesc->payment_id == 1 || $databayarDesc->payment_id == 4){
-				if($dataBayar->flag == 0){
+			if($databayarDesc->payment_id == 1 || $databayarDesc->payment_id == 4){	
+				if($dataBayar->flag == 0){	
 					// if($_SESSION['rick_auto']['tanggalfromrrp'] < $dataBayar->liquid_date){
 					// $dataBayarrr = $this->model_invoice->getTotalPaymentInvoiceByNott($dataDetail->no_tt,2)->row();
 					// }else{
-					// $dataBayarrr = $this->model_invoice->getTotalPaymentInvoiceByNott($dataDetail->no_tt,$databayarDesc->payment_id)->row();
+					// $dataBayarrr = $this->model_invoice->getTotalPaymentInvoiceByNott($dataDetail->no_tt,$databayarDesc->payment_id)->row();	
 					// }
 					$dataBayarrr = $this->model_invoice->getTotalPaymentInvoiceByNott($dataDetail->no_tt)->row();
 				echo"
@@ -114,7 +114,7 @@ foreach($getData->result() as $data){
 
 				<td>$no</td>
 
-				<td>".str_replace("PT.E","PT.ETC",$dataDetail->no_tt)."</td>
+				<td>".$dataDetail->no_tt."</td>
 
 				<td>".wordwrap($dataDetail->member_name,15,"<br>\n")." - ".$dataDetail->kota_member."</td>
 
@@ -140,7 +140,7 @@ foreach($getData->result() as $data){
 
 				<td>$no</td>
 
-				<td>".str_replace("PT.E","PT.ETC",$dataDetail->no_tt)."</td>
+				<td>".$dataDetail->no_tt."</td>
 
 				<td>".wordwrap($dataDetail->member_name,15,"<br>\n")." - ".$dataDetail->kota_member."</td>
 
@@ -169,7 +169,7 @@ foreach($getData->result() as $data){
 
 				<td>$no</td>
 
-				<td>".str_replace("PT.E","PT.ETC",$dataDetail->no_tt)."</td>
+				<td>".$dataDetail->no_tt."</td>
 
 				<td>".wordwrap($dataDetail->member_name,15,"<br>\n")." - ".$dataDetail->kota_member."</td>
 
@@ -198,7 +198,7 @@ foreach($getData->result() as $data){
 
 			foreach($getDataDetailOri->result() as $dataDetailOri){
 
-			$sisaOri = $sisaOri + $dataDetailOri->total;
+			$sisaOri = $sisaOri + $dataDetailOri->total;	
 
 				$noo++;
 
@@ -210,7 +210,7 @@ foreach($getData->result() as $data){
 
 				<td>$noo</td>
 
-				<td>".wordwrap(str_replace("PT.E","PT.ETC",$dataDetailOri->nonota),5,"<br>\n")."</td>
+				<td>".wordwrap($dataDetailOri->nonota,5,"<br>\n")."</td>
 
 				<td>".$dataDetailOri->member_name." - ".$dataDetailOri->kota_member."</td>
 

@@ -134,9 +134,9 @@ $tahun = date('Y');
 
 	                <th colspan="3" align="left">Customer</th>
 
-	                <th colspan="2" align="left">No. PO</th>
+	                <th align="center">No. PO</th>
 
-					<th align="left">Status</th>
+	                <th  align="right">Status</th>
 
             	</tr>
 
@@ -156,28 +156,28 @@ $tahun = date('Y');
 
 	            <tr>
 
-	            	<td><b><?= $data->nama_member ?></b></td>
+	            	<td><b><?=$data->nama_member?></b></td>
 
-	            	<td><b><?= $data->kota_member ?></b></td>
+	            	<td><b><?=$data->kota_member?></b></td>
 
 	            	<td><b>Description</b></td>
 
-					<td align="left"><b><?= str_replace("PT.E","PT.ETC",$data->nonota) ?></b></td>
+	                <td align="left"><b><?=$data->nonota?></b></td>
 
-					<td align="right">
-					<?php
-					if ($data->status == 0){
-						echo "<span class='label label-primary'>BARU</span>";
-					} elseif ($data->status_gudang == 0){
-						echo "<span class='label label-primary'>DIPROSES</span>";
-					} elseif ($data->status_gudang == 1) {
-							echo "<span class='label label-primary'>SELESAI</span>";
-					} elseif ($data->status_gudang == 2) {
-							echo "<span class='label label-primary'>DITOLAK</span>";
-					} else {
-							echo "<span class='label label-primary'>DIBATALKAN</span>";
-					}
-					echo"</td>
+									<td align="right">
+										<?php
+										if ($data->status == 0){
+											echo "<span class='label label-primary'>BARU</span>";
+										} elseif ($data->status_gudang == 0){
+											echo "<span class='label label-primary'>DIPROSES</span>";
+										} elseif ($data->status_gudang == 1) {
+												echo "<span class='label label-primary'>SELESAI</span>";
+										} elseif ($data->status_gudang == 2) {
+												echo "<span class='label label-primary'>DITOLAK</span>";
+										} else {
+												echo "<span class='label label-primary'>DIBATALKAN</span>";
+										}
+									echo"</td>
 
 	            </tr>";$detailData = $this->model_purchase->getPurchaseDetailByPurchase($data->id);
 
@@ -215,11 +215,11 @@ $tahun = date('Y');
 
 	            	<tr>
 
-	            	<td align="right" colspan="2"><b>Total</b></td>
+								<td align="right" colspan="2"><b>Total</b></td>
 
 	            	<td colspan='2' align='right'><b></b></td>
 
-	            	<td align='right'><b></b></td>
+	            	<!-- <td align='right'><b></b></td> -->
 
 	            	<td align='right'><b><?= number_format(round($total),2,',','.') ?></b></td>
 
@@ -229,7 +229,7 @@ $tahun = date('Y');
 
 
 
-	            <?php } echo"
+	           <?php } echo"
 
 		            <hr>
 

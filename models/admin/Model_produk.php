@@ -12,7 +12,7 @@ class Model_produk extends CI_Model {
 		$this->db->or_like('product_name',$search);
 		$this->db->limit(10);
 		$this->db->order_by('id','DESC');
-		return $this->db->get('product')->result_array();		
+		return $this->db->get('product')->result_array();
 	}
 	// public function getProdukSearch($search, $column){
 	// 	$this->db->select('product.product_code,product.id,product.product_name,product_barcode.barcode');
@@ -22,10 +22,10 @@ class Model_produk extends CI_Model {
 	// 	$this->db->like('product.product_code',$search);
 	// 	$this->db->or_like('product.product_name',$search);
 	// 	$this->db->limit(10);
-	// 	return $this->db->get()->result_array();		
+	// 	return $this->db->get()->result_array();
 	// }
 
-	
+
 
 	public function getProdukSearch__($search, $column, $perusahaan){
 		$this->db->select('ppg.*,g.name as nama_gudang,g.id as id_gudang, p.name as nama_perusahaan, p.id as id_perusahaan, pg.perusahaan_id as id_perusahaan_pg, pr.id as id_produk, pr.product_name as product_name, pr.product_code as product_code ');
@@ -40,7 +40,7 @@ class Model_produk extends CI_Model {
 		$this->db->limit(10);
 		//$this->db->where('pg.active',1);
 		//$this->db->group_by('pg.perusahaan_id');
-		return $this->db->get('product_perusahaan_gudangs ppg')->result_array();	
+		return $this->db->get('product_perusahaan_gudangs ppg')->result_array();
 	}
 
 	public function getProdukSearchPerusahaan($search, $column, $perusahaan){
@@ -241,7 +241,7 @@ class Model_produk extends CI_Model {
 		$this->db->select('pbd.*, pr.product_name as nama_produk, s.name as nama_satuan');
 		$this->db->join('product pr','pbd.produk_id = pr.id');
 		$this->db->join('satuan s','pr.satuan_id = s.id');
-		//$this->db->order_by('pbd.produk_id','asc');
+		// $this->db->order_by('pbd.produk_id','asc');
 		return $this->db->get('produk_beli_detail_temp pbd');
 	}
 

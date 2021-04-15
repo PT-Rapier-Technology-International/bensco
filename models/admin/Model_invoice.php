@@ -351,6 +351,8 @@ class Model_invoice extends CI_Model {
 
 		$this->db->join('member m','i.member_id = m.id');
 
+		//$this->db->join('invoice_tanda_terima itt', 'i.id = itt.invoice_id');
+
 		$this->db->where('i.flag_tanda_terima',$flag_tt);
 
 		 // $this->db->order_by('i.dateorder','asc');
@@ -481,13 +483,15 @@ class Model_invoice extends CI_Model {
 
 		$this->db->join('member m','i.member_id = m.id');
 
+		//$this->db->join()
+
 		$this->db->where('i.flag_tanda_terima',$flag_tt);
 
 		if(isset($_SESSION['rick_auto']['tanggalfromrtt']) && $_SESSION['rick_auto']['tanggaltortt']){
 
-			$this->db->where('i.dateorder >',$_SESSION['rick_auto']['tanggalfromrtt']);
+			$this->db->where('i.dateorder >=',$_SESSION['rick_auto']['tanggalfromrtt']);
 
-			$this->db->where('i.dateorder <',$_SESSION['rick_auto']['tanggaltorttt']);
+			$this->db->where('i.dateorder <=',$_SESSION['rick_auto']['tanggaltorttt']);
 
 		}
 
@@ -1934,11 +1938,14 @@ public function getPaymentTandaTerimaInv($inv){
 
 	public function getNoTTbyInvoiceId($invoice){
 
-		$this->db->select('*');
+		// $this->db->select('*');
+		$this->db->select('it.*, i.nonota as nota, i.dateorder as tglorder');
+
+		$this->db->join('invoice i','i.id = it.invoice_id');
 
 		$this->db->where('invoice_id',$invoice);
 
-		return $this->db->get('invoice_tanda_terima');
+		return $this->db->get('invoice_tanda_terima it');
 
 	}
 

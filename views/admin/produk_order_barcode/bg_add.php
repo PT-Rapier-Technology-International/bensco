@@ -31,7 +31,7 @@ echo"
                                 <input type='text' class='form-control' id='namaPabrik' name='namaPabrik'>
                         </div>
                     </div>
-                </div>  
+                </div>
                 <div class='row'>
                     <div class='col-md-6'>
                         <div class='form-group'>
@@ -54,23 +54,25 @@ echo"
                         </div>
 
                     </div>
-                </div>  
+                </div>
                 <div class='row'>
                     <div class='col-md-6'>
                         <div class='form-group'>
                             <label>Tanggal Faktur : </label>
-                                <input type='date' class='form-control' id='tglFaktur' name='tglFaktur' value='".date('Y-m-d', strtotime('+0 day'))."'>
+                                <!--<input type='date' class='form-control' id='tglFaktur' name='tglFaktur' value='".date('Y-m-d')."'>-->
+                                <input type='date' class='form-control' id='tglFaktur' name='tglFaktur' value='".date("Y-m-d", strtotime("+0 day"))."'>
                         </div>
                     </div>";
-                    if($_SESSION['rick_auto']['flag_user'] == 3){
+                     if($_SESSION['rick_auto']['flag_user'] == 3){
                         echo"
                     <div class='col-md-6'>
                         <div class='form-group'>
                             <label>Tanggal Sampai oleh Gudang : </label>
-                                <input type='date' class='form-control' id='tglSampaiGudang' name='tglSampaiGudang' value='".date('Y-m-d', strtotime('+0 day'))."'>
+                                <!--<input type='date' class='form-control' id='tglSampaiGudang' name='tglSampaiGudang' value='".date('Y-m-d')."'>-->
+                                <input type='date' class='form-control' id='tglSampaiGudang' name='tglSampaiGudang' value='".date("Y-m-d",strtotime("+0 day"))."'>
                         </div>
                     </div>";}echo"
-                </div>  
+                </div>
                 <div class='row'>
                     <div class='col-md-8'>
                         <div class='form-group' id='inpManual'>
@@ -133,7 +135,7 @@ echo"
                     </td>
                </tr>
         ";
-        }echo"	
+        }echo"
                 </tbody>
             </table>
         </div>
@@ -149,6 +151,7 @@ echo"
         </div>-->
         <div class='text-right'>
         	<button type='button' onclick=javascript:simpanPembuatanOrderBarcode(0) class='btn btn-success btn-labeled'><b><i class='icon-floppy-disk'></i></b> Simpan</button>
+            <!--<button type='button' onclick=javascript:simpanPembuatanOrderBarcode(1) class='btn btn-primary btn-labeled'><b><i class='icon-floppy-disk'></i></b> Selesai & Simpan</button>-->
             <button type='button' onclick=javascript:simpanPembuatanOrderBarcode(1) class='btn btn-primary btn-labeled'><b><i class='icon-floppy-disk'></i></b> Selesai & Simpan</button>
         </div>
     </div>

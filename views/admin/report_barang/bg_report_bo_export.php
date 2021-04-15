@@ -45,7 +45,7 @@ if(isset($_SESSION['rick_auto']['filter_bo_status'])){
 		<th>List Net</th>
 		<th>No. BO/PO</th>
 		<th>Status</th>
-	</tr>
+	</tr>		
 	<?php
 		$no = 0;
 		foreach($getPoBo->result() as $pobo){
@@ -61,7 +61,7 @@ if(isset($_SESSION['rick_auto']['filter_bo_status'])){
 		<td>".$pobo->qty." ".$pobo->nama_satuan."</td>
 		<td align='right'>".number_format($pobo->price,0,',','.')."</td>
 		<td align='right'>".number_format($pobo->ttl_price,0,',','.')."</td>
-		<td>".str_replace("PT.E","PT.ETC",$pobo->notransaction)."</td>
+		<td>".$pobo->notransaction."</td>
 		<td>Belum Terkirim</td>
 	</tr>";
 		}
@@ -79,7 +79,7 @@ if(isset($_SESSION['rick_auto']['filter_bo_status'])){
 		<td>".$po->qty." ".$po->satuan."</td>
 		<td align='right'>".number_format($po->price,0,',','.')."</td>
 		<td align='right'>".number_format($po->ttl_price,0,',','.')."</td>
-		<td>".str_replace("PT.E","PT.ETC",$po->nonota)."</td>
+		<td>".$po->nonota."</td>
 		<td>Terkirim</td>
 	</tr>";}
 	?>

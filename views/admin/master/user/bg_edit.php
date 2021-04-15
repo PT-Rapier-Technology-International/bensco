@@ -42,19 +42,19 @@ echo"
 						<div class='form-group'>
 							<label class='col-lg-3 control-label'>Nama Lengkap</label>
 							<div class='col-lg-9'>
-                                <input type='text' name='fullname' id='fullname' class='form-control' palceholder='Masukkan Nama Lengkap' value='".htmlspecialchars($getData->name,ENT_QUOTES)."'>
+                                <input type='text' name='fullname' id='fullname' class='form-control' placeholder='Masukkan Nama Lengkap' value='".htmlspecialchars($getData->name,ENT_QUOTES)."'>
                             </div>
             			</div>
             			<div class='form-group'>
 							<label class='col-lg-3 control-label'>Username</label>
 							<div class='col-lg-9'>
-                                <input type='text' name='username' id='username' class='form-control' palceholder='Masukkan Username' value='".$getData->username."' readonly>
+                                <input type='text' name='username' id='username' class='form-control' placeholder='Masukkan Username' value='".$getData->username."' readonly>
                             </div>
             			</div>
             			<div class='form-group'>
 							<label class='col-lg-3 control-label'>Email</label>
 							<div class='col-lg-9'>
-                                <input type='text' name='email' id='email' class='form-control' palceholder='Masukkan Email' value='".$getData->email."' >
+                                <input type='text' name='email' id='email' class='form-control' placeholder='Masukkan Email' value='".$getData->email."' >
                             </div>
             			</div>
                         <div class='form-group'>
@@ -67,7 +67,7 @@ echo"
                         <div class='form-group'>
                             <label class='col-lg-3 control-label'>Phone</label>
                             <div class='col-lg-9'>
-                                <input type='text' name='phone' id='phone' class='form-control' palceholder='Masukkan Hp' value='".$getData->phone."' >
+                                <input type='text' name='phone' id='phone' class='form-control' placeholder='Masukkan Hp' value='".$getData->phone."' >
                             </div>
                         </div>";
                         if($param_jenis == 1){
@@ -78,7 +78,7 @@ echo"
                         <div class='form-group'>
                             <label class='col-lg-3 control-label'>Alamat ".$jen."</label>
                             <div class='col-lg-9'>
-                                <input type='text' name='alamat' id='alamat' class='form-control' palceholder='Masukkan Alamat' value='".$getData->address."' >
+                                <input type='text' name='alamat' id='alamat' class='form-control' placeholder='Masukkan Alamat' value='".$getData->address."' >
                             </div>
                         </div>";
                         if($param_jenis == 1){
@@ -86,14 +86,14 @@ echo"
                         <div class='form-group'>
                             <label class='col-lg-3 control-label'>Alamat Toko</label>
                             <div class='col-lg-9'>
-                                <input type='text' name='alamat_toko' id='alamat_toko' class='form-control' palceholder='Masukkan Alamat Toko' value='".$getData->address_toko."'>
+                                <input type='text' name='alamat_toko' id='alamat_toko' class='form-control' placeholder='Masukkan Alamat Toko' value='".$getData->address_toko."'>
                             </div>
                         </div>";
                         }echo"
                         <div class='form-group'>
                             <label class='col-lg-3 control-label'>KTP/NPWP</label>
                             <div class='col-lg-9'>
-                                <input type='text' name='ktp' id='ktp' class='form-control' palceholder='Masukkan ktp' value='".$getData->ktp."' >
+                                <input type='text' name='ktp' id='ktp' class='form-control' placeholder='Masukkan ktp' value='".$getData->ktp."' >
                             </div>
                         </div>
             			";

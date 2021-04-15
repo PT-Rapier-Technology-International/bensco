@@ -166,8 +166,19 @@ class Model_datatable_po extends CI_Model {
 
 		$this->_get_datatables_query();
 
-		if(isset($_SESSION['rick_auto']['po_perusahaan_filter']) && $_SESSION['rick_auto']['po_perusahaan_filter'] != '' && $_SESSION['rick_auto']['po_perusahaan_filter'] != '0'){
-				$this->db->where('perusahaan_id',$_SESSION['rick_auto']['po_perusahaan_filter']);
+		//if(isset($_SESSION['rick_auto']['po_perusahaan_filter']) && $_SESSION['rick_auto']['po_perusahaan_filter'] != '' && $_SESSION['rick_auto']['po_perusahaan_filter']  != '0') && && (isset($_SESSION['rick_auto']['po_member_filter']) && $_SESSION['rick_auto']['po_member_filter'] != '' && $_SESSION['rick_auto']['po_member_filter'] != '0'))
+		if((isset($_SESSION['rick_auto']['po_perusahaan_filter']) && $_SESSION['rick_auto']['po_perusahaan_filter'] != '' && $_SESSION['rick_auto']['po_perusahaan_filter'] != '0') && (isset($_SESSION['rick_auto']['po_member_filter']) && $_SESSION['rick_auto']['po_member_filter'] != '' && $_SESSION['rick_auto']['po_member_filter'] != '0')) {
+				//$this->db->where('perusahaan_id',$_SESSION['rick_auto']['po_perusahaan_filter']);
+				$array = [
+					'perusahaan_id' => $_SESSION['rick_auto']['po_perusahaan_filter'],
+					'member_id'		=> $_SESSION['rick_auto']['po_member_filter']
+				
+				,];
+				$this->db->where($array);
+		}else if(isset($_SESSION['rick_auto']['po_perusahaan_filter']) && $_SESSION['rick_auto']['po_perusahaan_filter'] != '' && $_SESSION['rick_auto']['po_perusahaan_filter'] != '0'){
+			$this->db->where('perusahaan_id',$_SESSION['rick_auto']['po_perusahaan_filter']);
+		}else if(isset($_SESSION['rick_auto']['po_member_filter']) && $_SESSION['rick_auto']['po_member_filter'] != '' && $_SESSION['rick_auto']['po_member_filter'] != '0'){
+			$this->db->where('member_id',$_SESSION['rick_auto']['po_member_filter']);
 		}
 
 		if($_POST['length'] != -1)

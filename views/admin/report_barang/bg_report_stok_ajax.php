@@ -42,7 +42,7 @@ echo"
 		<th>Keterangan</th>
 		<th>Qty</th>
 		<th>Satuan</th>
-	</tr>
+	</tr>		
 	";
 		$no = 0;
 		$total1 = 0;
@@ -53,8 +53,8 @@ echo"
 		echo"
 	<tr>
 		<!-- <td>$no</td> -->
-		<td>".str_replace("PT.E","PT.ETC",$dataInv->nonota)."</td>
-		<td>".str_replace("PT.E","PT.ETC",$dataInv->purchase_no)."</td>
+		<td>".$dataInv->nonota."</td>
+		<td>".$dataInv->purchase_no."</td>
 		<td>".date("d M Y",strtotime($dataInv->dateorder))."</td>
 		<td>".$dataInv->kode_produk."</td>
 		<td>".$dataInv->nama_gudang."</td>

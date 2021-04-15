@@ -5,6 +5,7 @@ if($jenis == "excel"){
 	header("Content-type: application/vnd-ms-excel");
 	// header("Content-Disposition: attachment; filename=export_report_po_".date('d_m_y').".xls");
 	header("Content-Disposition: attachment; filename=export_report_po_".date("d_m_y",strtotime("+0 day", strtotime($_SESSION['rick_auto']['bulan']))).".xls");
+
 }
 
 $perusahaan = $this->uri->segment(5);
@@ -73,23 +74,22 @@ $tahun = date('Y');
 	        		$no++;
 	        		echo"
 	            <tr>
-	            	<td align='center'>".str_replace("PT.E","PT.ETC",$data->nonota)."</td>
+	            	<td align='center'>".$data->nonota."</td>
 	            	<td align='center'>".$data->nama_member."</td>
-					<td align='center'>".$data->kota_member."</td>
-					<td align='right>";
-					if ($data->status == 0){
-						echo "<span class='label label-primary'>BARU</span>";
-					} elseif ($data->status_gudang == 0){
-						echo "<span class='label label-primary'>DIPROSES</span>";
-					} elseif ($data->status_gudang == 1) {
-							echo "<span class='label label-primary'>SELESAI</span>";
-					} elseif ($data->status_gudang == 2) {
-							echo "<span class='label label-primary'>DITOLAK</span>";
-					} else {
-							echo "<span class='label label-primary'>DIBATALKAN</span>";
-					}
-
-					"</td>
+	            	<td align='center'>".$data->kota_member."</td>
+								<td align='right'>";
+								if ($data->status == 0){
+									echo "<span class='label label-primary'>BARU</span>";
+								} elseif ($data->status_gudang == 0){
+									echo "<span class='label label-primary'>DIPROSES</span>";
+								} elseif ($data->status_gudang == 1) {
+										echo "<span class='label label-primary'>SELESAI</span>";
+								} elseif ($data->status_gudang == 2) {
+										echo "<span class='label label-primary'>DITOLAK</span>";
+								} else {
+										echo "<span class='label label-primary'>DIBATALKAN</span>";
+								}
+								"</td>
 	            </tr>";}echo"
 	        </tbody>";?>
 	    </table>

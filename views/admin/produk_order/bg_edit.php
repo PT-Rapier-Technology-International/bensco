@@ -92,21 +92,20 @@ echo"
                         </div>
                     </div>
                     ";
-                    if($_SESSION['rick_auto']['flag_user'] == 6 || $_SESSION['rick_auto']['flag_user'] == 1){
+                    if($_SESSION['rick_auto']['flag_user'] == 6 || $_SESSION['rick_auto']['flag_user'] == 1 || $_SESSION['rick_auto']['flag_user'] == 7){
                         echo"
                     <div class='col-md-6'>
                         <div class='form-group'>
                             <label>Tanggal Sampai : </label>
                                 <!--<input type='date' class='form-control' id='tglSampaiGudang' name='tglSampaiGudang' value='".date("Y-m-d",strtotime("+0 day", strtotime($getData->warehouse_date)))."'>-->";
-                                if ($getData->warehouse_date == "" || $getData->warehouse_date == NULL){
+                            if ($getData->warehouse_date == "" || $getData->warehouse_date == NULL){
                                 echo"
                                 <input type='date' class='form-control' id='tglSampaiGudang' name='tglSampaiGudang' value='".date("Y-m-d",strtotime("+0 day", strtotime($getData->warehouse_date)))."'>";
                             } else{
                                 echo"
                                 <input type='date' class='form-control' id='tglSampaiGudang' name='tglSampaiGudang' value='".date("Y-m-d",strtotime("+0 day", strtotime($getData->warehouse_date)))."'>";
                             }
-                       echo"
-                        </div>
+                       echo"</div>
                     </div>";}echo"
                 </div>";
                 if($getData->status == 0){
@@ -174,12 +173,16 @@ echo"
                     </td>
                     <td width='25%'>
                         <!--<input type='text' id='addStokEdit_".$detail->id."' name='addStokEdit_".$detail->id."' value='".$detail->qty_receive."' class='form-control' style='display: block;' onkeyup='javascript:ubahQtyOrderEdit(".$detail->id.")'>-->
-                        <input type='text' id='addStokEdit_".$detail->id."' name='addStokEdit_".$detail->id."' class='form-control' style='display: block;' onkeyup='javascript:ubahQtyOrderEdit(".$detail->id.")' value='";
-                           if ($detail->qty_receive == "" || $detail->qty_receive == 0 || $detail->qty_receive == "0"){
-                               echo $detail->qty;
-                           } else {
-                               echo $detail->qty_receive;
-                           }echo"'>
+                            <input type='text' id='addStokEdit_".$detail->id."' name='addStokEdit_".$detail->id."' class='form-control' style='display: block;' onkeyup='javascript:ubahQtyOrderEdit(".$detail->id.")' value='"; 
+                            //if ($detail->qty_receive == "" || $detail->qty_receive == 0 || $detail->qty_receive == "0"){
+                                if ($detail->qty_receive < 0){
+                                echo $detail->qty;
+                            }else if ($detail->qty_receive == 0){
+                                echo "0";
+                            } 
+                            else {
+                                echo $detail->qty_receive;
+                            }echo"'>
                     </td>
                     <td>".$detail->nama_satuan."</td>
                     <td>";
@@ -203,11 +206,12 @@ echo"
         </div> -->
         <div class='text-right'>
             ";
-            if($_SESSION['rick_auto']['flag_user'] == 6 || $_SESSION['rick_auto']['flag_user'] == 1){
+            if($_SESSION['rick_auto']['flag_user'] == 6 || $_SESSION['rick_auto']['flag_user'] == 1 || $_SESSION['rick_auto']['flag_user'] == 7){
                 if($getData->flag_proses == 1){
-
+                    
                 }elseif($getData->status == 0){
-                }else{
+
+                } else {
                 echo"
             <button type='button' id='btnApprove' onclick=javascript:approveOrder() class='btn btn-primary btn-labeled'><b><i class='icon-checkmark'></i></b> Approve</button>
             ";}}
@@ -215,7 +219,7 @@ echo"
             if($getData->flag_proses == 1){
             }else{
                 echo"
-            <!-- <button type='button' onclick=javascript:simpanPembuatanOrderEdit(0) class='btn btn-success btn-labeled'><b><i class='icon-floppy-disk'></i></b> Simpan </button> -->
+            <!--<button type='button' onclick=javascript:simpanPembuatanOrderEdit(0) class='btn btn-success btn-labeled'><b><i class='icon-floppy-disk'></i></b> Simpan </button>-->
             <button type='button' onclick=javascript:simpanPembuatanOrderEdit(1) class='btn btn-primary btn-labeled'><b><i class='icon-floppy-disk'></i></b> Selesai & Simpan</button>";}}echo"
         </div>
     </div>

@@ -10,7 +10,7 @@ echo"
 							<ul class='icons-list'>
 		                		<li><a data-action='collapse'></a></li>
 		                		<li><a data-action='reload'></a></li>
-		                		 
+
 		                	</ul>
 	                	</div>
 					</div>
@@ -25,7 +25,7 @@ echo"
 						<a href='".base_url("admin/produk/order_add")."' class='btn btn-info btn'>Order Barang Baru</a>";
 						}else{
 						echo"
-						<a href='".base_url("admin/produk/order_add_barcode")."' class='btn btn-info btn'>Order Barang Baru</a>";	
+						<a href='".base_url("admin/produk/order_add_barcode")."' class='btn btn-info btn'>Order Barang Baru</a>";
 						}
 					}echo"
 					</div>
@@ -66,6 +66,7 @@ echo"
 
 									<td>".date("d M y",strtotime("+0 day", strtotime($data->faktur_date)))."</td>
 									<td>".date("d M y",strtotime("+0 day", strtotime($data->warehouse_date)))."</td>
+									<!--<td></td>-->
 									<td>".$stSpan."</td>
 									<td>".$data->create_user."</td>
 									<td>".$data->approve_user."</td>

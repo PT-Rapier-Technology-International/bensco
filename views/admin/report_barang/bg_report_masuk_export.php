@@ -11,14 +11,14 @@ if($jenis == "excel"){
 	<title></title>
 	<style type='text/css' media='print'>
   @page {
-    size: auto;
-    margin: 0;
+    size: auto;  
+    margin: 0;  
   }
 </style>
 <style>
   body{
     padding-left: 1.3cm;
-    padding-right: 1.3cm;
+    padding-right: 1.3cm; 
     padding-top: 1.1cm;
   }
 </style>
@@ -41,12 +41,7 @@ if($jenis == "excel"){
 	</tr>
 	<?php
 	$no = 0;
-	$temp = 0;
 	foreach($getData->result() as $data){
-		if ($data->note == "Adjusment" || $data->note == "adjusment"){
-			echo "";
-		} else {
-			$temp = $temp + $data->stock_input;
 		$no++;
 		echo"
 	<tr>
@@ -73,12 +68,7 @@ if($jenis == "excel"){
 		<td style='text-align: center;'>".$data->nama_satuan."</td>
 		<td style='font-size: 14px;'>".$data->note."</td>
 
-	</tr>";}}?>
-	<tr>
-
-		<td style="text-align:center; border: none;" colspan="6"><b>Total</b></td>
-		<td style="text-align:center; border: none;"><?= $temp ?> <?= $data->nama_satuan ?></td>
-	</tr>
+	</tr>";}?>
 </table>
 </body>
 </html>

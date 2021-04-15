@@ -20,9 +20,9 @@ echo"
 
   @page {
 
-    size: auto;
+    size: auto;  
 
-    margin: 0;
+    margin: 0;  
 
   }
 
@@ -34,7 +34,7 @@ echo"
 
     padding-left: 0.8cm;
 
-    padding-right: 0.8cm;
+    padding-right: 0.8cm; 
 
     padding-top: 0.3cm;
 
@@ -192,7 +192,7 @@ echo"
 
 	        <tbody>";
 
-
+	        	
 
 	        	$total_pembayaran = 0;
 
@@ -251,7 +251,7 @@ echo"
 	                	<table border='0' width='100%'>
 	                		<tr>
 	                			<td align='right' style='font-size: 13px;font-family:arial' width='70%'>".$detailInvoice->weight."</td>
-	                			<td align='right' style='font-size: 13px;font-family:arial' width='30%'>Kg</td>
+	                			<td align='right' style='font-size: 13px;font-family:arial' width='30%'>Kg</td> 
 	                		</tr>
 	                	</table>
 	                </td>
@@ -286,13 +286,13 @@ echo"
 
 									}else{echo"Rp. ".number_format($total_pembayaran,0,',','.')."";}echo"</h3></td>
 
-
+									
 
 	            </tr>
 
 	            <tr>
 
-
+	            	
 
 	            	<td align='center' colspan='2' style='font-size: 13px;font-family:arial'><h3>PPN 10% </h3></td>
 
@@ -302,7 +302,7 @@ echo"
 
 	            <tr>
 
-
+	            	
 
 	            	<td align='center' colspan='2' style='font-size: 13px;font-family:arial'><h3>TOTAL </h3></td>
 

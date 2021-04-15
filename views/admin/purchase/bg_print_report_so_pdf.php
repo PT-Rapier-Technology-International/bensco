@@ -68,7 +68,7 @@ $tahun = date('Y');
 	                <th align="center"><b>No. PO</b></th>
 	                <th align="center"><b>Nama Customer</b></th>
 	                <th align="center"><b>Kota</b></th>
-					<th align="center"><b>Status</b></th>
+									<th align="center"><b>Status</b></th>
             	</tr>
 	        </thead>
 	        <tbody><?php
@@ -78,24 +78,26 @@ $tahun = date('Y');
 	        		$no++;
 	        	?>
 	            <tr>
-	            	<td align="center"><?php echo str_replace("PT.E","PT.ETC",$data->nonota); ?></td>
+	            	<td align="center"><?php echo $data->nonota; ?></td>
 	            	<td align="center"><?php echo $data->nama_member; ?></td>
 	            	<td align="center"><?php echo $data->kota_member; ?></td>
-					<td align="center">
-					<?php
-						if ($data->status == 0){
-							echo "<span class='label label-primary'>BARU</span>";
-						} elseif ($data->status_gudang == 0){
-							echo "<span class='label label-primary'>DIPROSES</span>";
-						} elseif ($data->status_gudang == 1) {
-								echo "<span class='label label-primary'>SELESAI</span>";
-						} elseif ($data->status_gudang == 2) {
-								echo "<span class='label label-primary'>DITOLAK</span>";
-						} else {
-								echo "<span class='label label-primary'>DIBATALKAN</span>";
-						}
-					?>
-					</td>
+								<td align='right'>
+									<?php
+										// $data->status_gudang;
+										// $status_awal = $data->status;
+										if ($data->status == 0){
+											echo "<span class='label label-primary'>BARU</span>";
+										} elseif ($data->status_gudang == 0){
+											echo "<span class='label label-primary'>DIPROSES</span>";
+										} elseif ($data->status_gudang == 1) {
+												echo "<span class='label label-primary'>SELESAI</span>";
+										} elseif ($data->status_gudang == 2) {
+												echo "<span class='label label-primary'>DITOLAK</span>";
+										} else {
+												echo "<span class='label label-primary'>DIBATALKAN</span>";
+										}
+										?>
+								</td>
 	            </tr>
 	        <?php } ?>
 	        </tbody>

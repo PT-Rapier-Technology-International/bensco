@@ -25,10 +25,10 @@ if($jenis == "excel"){
 
   @page {
 
-    size: auto;
+    size: auto;  
 
-    margin: 0;
-    margin-right:0.9cm;
+    margin: 0; 
+    margin-right:0.9cm; 
 
   }
 
@@ -40,7 +40,7 @@ if($jenis == "excel"){
 
     padding-left: 0.8cm;
 
-    padding-right: 0.8cm;
+    padding-right: 0.8cm; 
 
     padding-top: 1.1cm;
 
@@ -91,13 +91,14 @@ if($jenis == "excel"){
 	<?php
 
 	$no = 0;
-	$temp = 0;
+  	$temp = 0;
 	foreach($getData->result() as $data){
-		if ($data->note == "Adjusment" || $data->note == "adjusment"){
+		if ($data->nama_satuan == "Adjusment" || $data->nama_satuan == "adjusment"){
+			if ($data->status_gudang == 2 || $data->status_gudang == "Ditolak" || $data->status == 0 || $data->status == "Baru")
+
 			echo "";
-		} else{
-			$temp = $temp + $data->stock_input;
-		
+		} else {
+			$temp += $data->stock_input;
 		$no++;
 
 		echo"
@@ -114,26 +115,26 @@ if($jenis == "excel"){
 
 				echo"
 
-				<td width='5px'>".wordwrap(Adjustment, 6, '<br />', true)."</td>";
-
+				<!--<td width='5px'>".wordwrap(Adjustment, 6, '<br />', true)."</td>-->
+				<td width='5px'>".wordwrap(Adjustment, 6, '<br />', true)."</td>";		
 
 			}else{
 
 				echo"
 
-				<td width='5px'>".str_replace("PT.E","PT.ETC",$data->nonota)."</td>";
-
+				<td width='5px'>".$data->nonota."</td>";
+				
 			}
 
 		}else{
 
-				echo"
+				echo" 
 
-		<td style='font-size:13px'>".wordwrap(str_replace("PT.E","PT.ETC",$data->nonota_nota), 10, true)."</td>";
+		<td style='font-size:13px'>".wordwrap($data->nonota_nota, 15, true)."</td>";
 
 		}echo"
 
-		<td style='font-size:13px'>".wordwrap(str_replace("PT.E","PT.ETC",$data->no_purchase), 10, true)."</td>
+		<td style='font-size:13px'>".wordwrap($data->no_purchase, 15, true)."</td>
 
 		<td align='center'; style='font-size:14px'>".$data->nama_gudang."</td>";
 
@@ -172,16 +173,24 @@ if($jenis == "excel"){
 
 		<td align='right'; width='24%'>".number_format($data->harga_satuan_po,0,',','.')."</td>
 
-	</tr>";}}?>
+	</tr>";}}
+
+	echo"
 	<tr>
-		
-		<td style="text-align: center; border: none;" colspan="8"><b>Total</b></td>
-		<td style="text-align: center; border: none;"><?= $temp ?></td> 
-		<td style="border: none;"><?= $data->nama_satuan ?></td>
-		
+		<td style='border: none;'></td>
+		<td style='border: none;'></td>
+		<td style='border: none;'></td>
+		<td style='border: none;'></td>
+		<td style='border: none;'></td>
+		<td style='border: none;'></td>
+		<td style='border: none;'></td>
+		<td style='text-align: center; border: none;' ><b>Total</b></td>
+		<td style='text-align: center; border: none;'>".$temp."</td>
+		<td style='border: none;'>".$data->nama_satuan."</td>
+		<td style='border: none;'></td>
 	</tr>
 
-	
+	";?>
 
 </table>
 

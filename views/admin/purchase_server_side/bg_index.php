@@ -28,7 +28,6 @@ echo"
 
 
 
-<!-- Invoice archive -->
 
 <div class='panel panel-white'>
 
@@ -58,7 +57,7 @@ echo"
 
     <div style='margin-bottom:1%;margin-top:1%' class='col-sm-12'>
 
-        <div class='col-sm-8'>
+        <div class='col-sm-5'>
 
             <select class='form-control' id='cmbPerusahaanFilter' name='cmbPerusahaanFilter'>
 
@@ -89,8 +88,39 @@ echo"
             </select>
 
         </div>
+        <div class='col-sm-5'>
 
-        <div class='col-sm-4'>
+            <select class='form-control' id='cmbMemberFilter' name='cmbMemberFilter'>
+
+                <option value='0'>Semua Member</option>
+
+                ";
+
+                if(isset($_SESSION['rick_auto']['po_member_filter'])){
+
+                foreach($getAllMember->result() as $member){
+
+                    echo"
+
+                <option value='".$member->id."' ";if($member->id == $_SESSION['rick_auto']['po_member_filter']){echo"selected";}else{}echo">".strtoupper($member->name)."</option>";}
+
+            }else{
+
+                foreach($getAllMember->result() as $member){
+
+                echo"
+
+                <option value='".$member->id."'>".strtoupper($member->name)."</option>
+
+                ";}
+
+            }echo"
+
+            </select>
+
+        </div>
+
+        <div class='col-sm-2'>
 
             <a href='#!' onclick=javascript:filter_perusahaan_po(); class='btn btn-primary btn-labeled'><b><i class='icon-search4'></i></b> Cari </a>
 
@@ -194,41 +224,50 @@ echo"
 
             "pageLength": 10,
 
-            "searching": true,
-
-            "processing": true, 
+            // "processing": true, 
+            "processing": false, 
 
             "serverSide": true, 
 
             "paging": true,
 
-            // "order": [[7, "asc"]], 
-            "order": [],
+            // "order": [[2, "desc"],[6, "desc"]], 
+            "order": [], 
 
             // "columnDefs": [ { goals: [2,6]  }], 
-
-            
+            /*"columnDefs": [
+                { 
+                    "targets": [ 0 ], //first column / numbering column
+                    "orderable": false, //set not orderable
+                },
+            ],*/
 
             "ajax": {
 
                 "url": "<?php echo site_url('admin/purchase/getDataPO')?>",
 
-                "type": "POST"
+                "type": "POST",
+
+                // "dataSrc":"data"
+
+                /*"error": function (e) {
+                    alert(e);
+                  },
+                  "dataSrc": function (d) {
+                     alert(JSON.stringify(d));
+                  }*/
 
             },
-
 
             "columnDefs": [
                 { 
                     "targets": [ 0,1,2,3,4,5,6,7 ], //first column / numbering column
                     "orderable": false, //set not orderable
-                    // "targets": 2, "orderSequence": ['desc']
-
                 },
-                // { type: 'natural', targets: 2 }
-                /*{targets: 7, orderSequence: ['asc']},
-                {targets: 0, orderSequence: ['desc']}  */
                 ],
+
+
+
             
 
             // "columnDefs": [
@@ -246,7 +285,6 @@ echo"
 
 
         });
-
 
 
 </script>

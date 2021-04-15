@@ -27,9 +27,8 @@ ob_start();
     $content = $content;
     //$content = ob_get_contents();
     
-ob_end_clean();
+ob_end_clean(); 
 $obj_pdf->writeHTML($content, true, false, true, false, '');
-// $obj_pdf->Output(''.$name.'_'.date('d M Y').'.pdf', 'I');
 $obj_pdf->Output(''.$name.'.pdf', 'I');
 
 ?>

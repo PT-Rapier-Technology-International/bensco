@@ -4,7 +4,7 @@ echo"
 
 <div class='form-group has-feedback'>
 
-    <a href='".base_url("admin/invoice/export_barang_keluar/excel")."' target='_blank' class='btn bg-green'><i class=' icon-file-download2 position-left'></i>Export Excel</a> &nbsp;
+    <a href='".base_url("admin/invoice/export_barang_keluar/excel")."' target='_blank' class='btn bg-green'><i class=' icon-file-download2 position-left'></i>Export Excel</a> &nbsp; 
 
     <a href='".base_url("admin/invoice/export_barang_keluar/pdf")."' target='_blank' class='btn btn-danger'><i class='icon-file-download position-left'></i>Export PDF</a> &nbsp;
 
@@ -49,12 +49,14 @@ echo"
 	";
 
 	$no = 0;
-  $temp = 0;
+	$temp = 0;
 	foreach($getData->result() as $data){
-    if ($data->note == "Adjusment" || $data->note == "adjusment"){
-      echo "";
-    } else {
-      $temp = $temp + $data->stock_input;
+		if($data->note == "Adjusment" || $data->note == "adjusment"){
+			
+			echo "";
+		} else {
+			
+		 	$temp = $temp + $data->stock_input;
 		$no++;
 
 		echo"
@@ -85,11 +87,11 @@ echo"
 
 				echo"
 
-		<td>".str_replace("PT.E","PT.ETC",$data->nonota_nota)."</td>";
+		<td>".$data->nonota_nota."</td>";
 
 		}echo"
 
-		<td>".str_replace("PT.E","PT.ETC",$data->no_purchase)."</td>
+		<td>".$data->no_purchase."</td>
 
 		<td>".$data->nama_gudang."</td>";
 
@@ -130,16 +132,18 @@ echo"
 	</tr>";}}
 
 	echo"
-  <tr width='100%'>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td style='font-size:20px;'><b>Total</b></td>
-  <td></td>
-  <td colspan='3' style='font-size:20px; text-align:right;'><b>".$temp." ".$data->nama_satuan."</b></td>
-  </tr>
+
+	<tr width='100%'>
+		<td></td>
+		<td></td>	
+		<td></td>
+		<td></td>
+		<td style='font-size:20px;'><b>Total</b></td>
+		<td></td>
+		<td colspan='3' style='font-size:20px; text-align:right;'><b>".$temp."</b></td> <td><b>".$data->nama_satuan."</b></td>
+		<td></td>
+		</tr>
 
 </table>
-
+	
 ";?>

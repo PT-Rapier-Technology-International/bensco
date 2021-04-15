@@ -10,7 +10,7 @@ echo"
 							<ul class='icons-list'>
 		                		<li><a data-action='collapse'></a></li>
 		                		<li><a data-action='reload'></a></li>
-		                		 
+
 		                	</ul>
 	                	</div>
 					</div>
@@ -60,7 +60,8 @@ echo"
 									<td>".$data->factory_name."</td>
 
 									<td>".date("d M y",strtotime("+0 day", strtotime($data->faktur_date)))."</td>
-									<td>".date("d M y",strtotime("+0 day", strtotime($data->create_date)))."</td>
+									<!--<td>".date("d M y",strtotime("+0 day", strtotime($data->create_date)))."</td>-->
+									<!--<td>".date("d M y",strtotime("+0 day", strtotime($data->warehouse_date)))."</td>-->
 									<td>".$stSpan."</td>
 									<td>".$data->create_user."</td>
 									<td>".$data->approve_user."</td>

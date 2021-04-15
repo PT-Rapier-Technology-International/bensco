@@ -106,7 +106,7 @@ echo"
             $('#ajax_load').html(msg);
         }
         //console(runing);
-    });   
-        
+    });
+
     }
 </script>

@@ -47,7 +47,7 @@ echo"
         <div class='col-sm-4'>
             <a href='#!' onclick=javascript:filter_perusahaan_po(); class='btn btn-primary btn-labeled'><b><i class='icon-search4'></i></b> Cari </a>
             </div>
-    </div>
+    		</div>
 	<table class='table datatable-basic' id='tabelPO'>
 		<thead>
 			<tr>
@@ -256,9 +256,9 @@ echo"
                     if($getInvoice->num_rows() > 0){
                             $ppn = $getPurchaseDetail->total_harga * 10 / 100;
                             $grandTotal = $getPurchaseDetail->total_harga + $ppn;
-                            $tot = "<h6 class='no-margin text-bold'>".number_format($grandTotal,2,',','.')."</h6>";
+                            $tot = "<h6 class='no-margin text-bold'>".number_format(round($grandTotal),2,',','.')."</h6>";
                         }else{
-                            $tot = "<h6 class='no-margin text-bold'>".number_format($getPurchaseDetail->total_harga,2,',','.')."</h6>";
+                            $tot = "<h6 class='no-margin text-bold'>".number_format(round($getPurchaseDetail->total_harga),2,',','.')."</h6>";
                         }
                 	}echo"
                     ".$tot."

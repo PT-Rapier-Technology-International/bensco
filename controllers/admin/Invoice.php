@@ -650,7 +650,14 @@ class Invoice extends CI_Controller {
                     $updateInvoice = "";
                    // echo "disini";
                 }else{
-                    $insertInvoiceRR = $this->db->set('nomor_retur_revisi',$txtnoTransaksi)->set('invoice_tanda_terima_id',$getdataTT->id)->set('invoice_id',$txtidInvoice)->set('invoice_detail_id',$detailInvoice->id)->set('note',$txtNote)->set('qty_before',$txtQtyOld)->set('qty_change',$txtQty)->set('price_before',$txtTotalSatuanOld)->set('price_change',$txtTotalSatuan)->set('total_before',$txtTotalOld)->set('total_change',$txtTotal)->set('create_date',date("Y-m-d H:i:s"))->set('create_user',$_SESSION['rick_auto']['username'])->insert('invoice_retur_revisi');
+                    $insertInvoiceRR = $this->db->set('nomor_retur_revisi',$txtnoTransaksi)->set('invoice_tanda_terima_id',$getdataTT->id)
+                    ->set('invoice_id',$txtidInvoice)
+                    ->set('invoice_detail_id',$detailInvoice->id)
+                    ->set('note',$txtNote)->set('qty_before',$txtQtyOld)
+                    ->set('qty_change',$txtQty)->set('price_before',$txtTotalSatuanOld)
+                    ->set('price_change',$txtTotalSatuan)->set('total_before',$txtTotalOld)
+                    ->set('total_change',$txtTotal)->set('create_date',date("Y-m-d H:i:s"))
+                    ->set('create_user',$_SESSION['rick_auto']['username'])->insert('invoice_retur_revisi');
                     $updateInvoice = $this->db->set('qty_kirim',$txtQty)->set('price',$txtTotalSatuan)->set('ttl_price',$txtTotal)->where('id',$detailInvoice->id)->update('invoice_detail');
                     if($detailInvoice->satuan == "Pcs"){
                     $getProdukByCode = $this->model_produk->getProductByCode($detailInvoice->product_code)->row();
@@ -1572,6 +1579,7 @@ class Invoice extends CI_Controller {
             $_SESSION['rick_auto']['tanggalfromrtt'] = date("Y-m-d",strtotime("+0 day",strtotime($tanggalFrom)));
             $_SESSION['rick_auto']['tanggaltortt'] = date("Y-m-d",strtotime("+0 day",strtotime($tanggalTo)));
             $_SESSION['rick_auto']['tanggaltorttt'] = date("Y-m-d",strtotime("+1 day", strtotime($tanggalTo)));
+           
         }
         
         //$_SESSION['rick_auto']['cityrtt'] = $city;
@@ -1581,6 +1589,7 @@ class Invoice extends CI_Controller {
     public function print_report_tanda_terima(){
         //$this->data['getKota'] = $this->model_invoice->getCityIn();
         $this->data['getMemberInvoice'] = $this->model_invoice->getInvoiceByAllMembersReportTT(1);
+        //echo json_encode($this->data['getMemberInvoice']);
         $this->data['getPerusahaan'] = $this->model_master->getPerusahaanByID($_SESSION['rick_auto']['perusahaanrtt'])->row();
         $jenis = $this->uri->segment(4);
         if($jenis != "pdf"){

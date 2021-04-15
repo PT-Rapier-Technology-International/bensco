@@ -216,11 +216,13 @@ echo"
 
 
 
-					<td style='font-size: 11px' align='center' width='16%'>".date("d/m/Y",strtotime("+0 day", strtotime($print->dateorder)))."</td>
+					<!--<td style='font-size: 11px' align='center' width='16%'>".date("d/m/Y",strtotime("+0 day", strtotime($print->dateorder)))."</td>-->
+					<td style='font-size: 11px' align='center' width='16%'>".date("d/m/Y",strtotime("+0 day", strtotime($nott->tglorder)))."</td>
 
 					<td style='font-size: 11px' align='center' width='14%'>".str_replace("PT.E","PT.ETC",$nott->no_tanda_terima)."</td>
 
-					<td style='font-size: 11px' align='center' width='14%'>".str_replace("PT.E","PT.ETC",$print->nonota)."</td>
+					<!--<td style='font-size: 11px' align='center' width='14%'>".str_replace("PT.E","PT.ETC",$print->nonota)."</td>-->
+					<td style='font-size: 11px' align='center' width='14%'>".str_replace("PT.E","PT.ETC",$nott->nota)."</td>
 
 					<td style='font-size: 11px' align='center' width='14%'>".number_format($print->total,2,',','.')."</td>
 
