@@ -7192,10 +7192,10 @@ class Purchase extends CI_Controller
 
                     $grandTotal = $getPurchaseDetail->total_harga + $ppn;
 
-                    $tot = "<h6 class='no-margin text-bold'>" . number_format(round($grandTotal), 2, ',', '.') . "</h6>";
+                    $tot = "<h6 class='no-margin text-bold'>" . number_format(ceil($grandTotal), 2, ',', '.') . "</h6>";
                 } else {
 
-                    $tot = "<h6 class='no-margin text-bold'>" . number_format(round($getPurchaseDetail->total_harga), 2, ',', '.') . "</h6>";
+                    $tot = "<h6 class='no-margin text-bold'>" . number_format(ceil($getPurchaseDetail->total_harga), 2, ',', '.') . "</h6>";
                 }
             }
 
