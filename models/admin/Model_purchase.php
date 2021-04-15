@@ -995,6 +995,11 @@ class Model_purchase extends CI_Model {
 
 	}
 
+	public function deletePOBatal($id){
+		$this->db->where('id', $id);
+  		$this->db->delete('transaction_purchase_temporary');
+	}
+
 
 }
 

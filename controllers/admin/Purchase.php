@@ -7290,4 +7290,14 @@ class Purchase extends CI_Controller
         }
         echo 'berhasil menambahkan data di product perusahaan gudang';
     }
+
+    public function delete_po_batal()
+    {
+        if($this->input->post('checkbox_value')){
+            $id = $this->input->post('checkbox_value');
+            for($count = 0; $count < count($id); $count++){
+                $this->model_purchase->deletePOBatal($id[$count]);
+            }
+        }
+    }
 }

@@ -56,7 +56,14 @@ echo"
                 <input type='hidden' id='txtSales' name='txtSales'>
         </div>
         <div class='col-sm-4'>
-            <a href='#!' onclick=javascript:filter_perusahaan_rpo(); class='btn btn-primary btn-labeled'><b><i class='icon-search4'></i></b> Cari </a>
+            <a href='#!' onclick=javascript:filter_perusahaan_rpo(); class='btn btn-primary btn-labeled'><b><i class='icon-search4'></i></b> Cari </a>";
+            if($uri4 == ""){
+                echo"";
+            }else{
+                echo"
+                <a href='#!' onclick=javascript:delete_po_batal(); class='btn btn-danger btn-labeled' name='delete_all' id='delete_all'><b><i class='icon-trash'></i></b> Delete </a>
+                ";
+            }echo"
             </div>
     </div>
 	<table class='table table-lg invoice-archive' id='tabelTransaksi'>
@@ -77,7 +84,7 @@ echo"
                 <th>Catatan Gudang</th>
                     ";
                 }echo"
-
+                <th><input type='checkbox' id='selectAll'></th>
             </tr>
 		</thead>
 		<tbody>
@@ -190,6 +197,7 @@ echo"
                         echo "
                         <td>".$purchase->note."</td>";
                     }echo"
+                    <td><input type='checkbox' class='delete_checkbox' value='".$purchase->id."'></td>
             </tr>
             ";}
             echo"
