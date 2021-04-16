@@ -5366,13 +5366,24 @@ class Purchase extends CI_Controller
 
         $hitungTotal = $txtTotalSatuan - $hitungDiskon;
 
-        $total = $hitungTotal * $txtQty;
+        // $total = $hitungTotal * $txtQty;
+
+        // $totalbdiskon = $txtTotalSatuanB * $txtQty;
+
+        // $txtTotalSatuanBs = $txtTotalSatuan / $txtQty;
+
+        // $txtTotalSatuans = $total / $txtQty;
+
+        // $txtTotalSatuanss = $txtTotalSatuan;
+
+        // $txtTotalBeforeDiskon = $txtTotalSatuanss * $txtQty;
+        $txtTotalSatuans = round($hitungTotal);
+
+        $total = round($txtTotalSatuans * $txtQty);
 
         $totalbdiskon = $txtTotalSatuanB * $txtQty;
 
         $txtTotalSatuanBs = $txtTotalSatuan / $txtQty;
-
-        $txtTotalSatuans = $total / $txtQty;
 
         $txtTotalSatuanss = $txtTotalSatuan;
 

@@ -2,6 +2,23 @@
 
 $getPerusahaan = $this->model_master->getPerusahaanByID($getInvoice->perusahaan_id)->row();
 
+// $getInvoiceDetail = $this->model_invoice->getInvoiceDetailByInvoiceId($getInvoice->id);
+
+// $total_pembayaran = 0;
+
+// foreach($getInvoiceDetail->result() as $detailInvoice){
+
+// 	$detailInvoice->ttl_price = ceil($detailInvoice->price) * $detailInvoice->qty_kirim;
+//     $total_pembayaran = $total_pembayaran + ceil($detailInvoice->ttl_price);
+// }
+// $diskon = ceil($getInvoice->discount / $total_pembayaran * 100);
+								
+// $getInvoice->total_before_ppn = $total_pembayaran - ceil($getInvoice->discount);
+
+// $ppn = $getInvoice->total_before_ppn * 10 / 100;
+
+// $grandTotal = ceil($getInvoice->total_before_ppn) + ceil($ppn);
+
 echo"
 
 	<div class='modal-header'>
@@ -88,7 +105,8 @@ echo"
 
 				<ul class='list-condensed list-unstyled invoice-payment-details'>
 
-					<li><h5>Total Due: <span class='text-right text-semibold'>Rp. ".number_format(ceil($getInvoice->total),2,',','.')."</span></h5></li>
+					<!--<li><h5>Total Due: <span class='text-right text-semibold'>Rp. ".number_format($grandTotal,2,',','.')."</span></h5></li>-->
+					<li><h5>Total Due: <span class='text-right text-semibold'>Rp. ".number_format($getInvoice->total,2,',','.')."</span></h5></li>
 
 					<li>Nama Bank: <span class='text-semibold'>".$getPerusahaan->bank_name."</span></li>
 
@@ -122,7 +140,7 @@ echo"
 
 	                <th class='col-sm-1'>Qty</th>
 
-	                <th class='col-sm-1'>Include Diskon</th>
+	                <!--<th class='col-sm-1'>Include Diskon</th>-->
 
 	                <th class='col-sm-1'>Harga Total</th>
 
@@ -138,11 +156,20 @@ echo"
 
 	        	foreach($getInvoiceDetail->result() as $detailInvoice){
 
-	        		$total_pembayaran = $total_pembayaran + $detailInvoice->ttl_price;
+	        		// $detailInvoice->ttl_price = ceil($detailInvoice->price) * $detailInvoice->qty_kirim;
+				    // $total_pembayaran = $total_pembayaran + ceil($detailInvoice->ttl_price);
+
+	        		// // $total_pembayaran = $total_pembayaran + $detailInvoice->ttl_price;
+
+	        		// $discpersen = $total_pembayaran / $getInvoice->discount;
+
+					// $diskon = 100 / $discpersen;
+					$total_pembayaran = $total_pembayaran + $detailInvoice->ttl_price;
 	        		$diskon = round(100 - (($detailInvoice->price / $detailInvoice->netprice) * 100));
 					$discpersen = $total_pembayaran / $getInvoice->discount;
 
 					$diskon = 100 / $discpersen;
+
 	        		echo"
 
 	            <tr>
@@ -153,15 +180,14 @@ echo"
 
                 	</td>
 
-	                <td class='text-right'>".number_format(round($detailInvoice->price),2,',','.')."</td>
+	                <td class='text-right'>".number_format($detailInvoice->price,2,',','.')."</td>
 
 	                <td>".$detailInvoice->qty_kirim." ".$detailInvoice->satuan."</td>
 
-	                <!--<td>".$detailInvoice->dsc."%</td>-->
-
+	                <!--<td>".$diskon."%</td>-->
 					<td>".floor($diskon)."%</td>
 
-	                <td class='text-right'><span class='text-semibold'>".number_format(round($detailInvoice->ttl_price),2,',','.')."</span></td>
+	                <td class='text-right'><span class='text-semibold'>".number_format($detailInvoice->ttl_price,2,',','.')."</span></td>
 
 	            </tr>";}echo"
 
@@ -225,7 +251,7 @@ echo"
 
 								<th>Subtotal:</th>
 
-								<td class='text-right'>Rp. ".number_format(round($total_pembayaran),2,',','.')."</td>
+								<td class='text-right'>Rp. ".number_format($total_pembayaran,2,',','.')."</td>
 
 								</tr>";
 
@@ -235,7 +261,13 @@ echo"
 
 								$dpersen3 = explode('.',$dpersen2);
 
-								$afterdiskon = $total_pembayaran - $getInvoice->discount;
+								$diskon = ceil($getInvoice->discount / $total_pembayaran * 100);
+								
+								$getInvoice->total_before_ppn = $total_pembayaran - ceil($getInvoice->discount);
+
+								$ppn = $getInvoice->total_before_ppn * 10 / 100;
+
+		            			$grandTotal = ceil($getInvoice->total_before_ppn) + ceil($ppn);
 
 								echo"
 
@@ -243,21 +275,19 @@ echo"
 
 								<th>Diskon ".floor($dpersen2)."%:</th>
 
-								<td class='text-right'>Rp. ".number_format($getInvoice->discount,2,',','.')."</td>
+								<td class='text-right'>Rp. ".number_format($diskon,2,',','.')."</td>
 
 								</tr>
 
 								<th>Total Setelah Diskon:</th>
 
-								<td class='text-right'>Rp. ".number_format(round($afterdiskon),2,',','.')."</td>
+								<td class='text-right'>Rp. ".number_format($getInvoice->total_before_ppn,2,',','.')."</td>
 
 								</tr>";
 
-								$ppn = round($getInvoice->total_before_ppn * 10 / 100);
+								// $ppn = ceil($getInvoice->total_before_ppn * 10 / 100);
 
-            					$grandTotal = $getInvoice->total + $ppn;
-
-								$grandttl = round($afterdiskon + $ppn);
+        //     					$grandTotal = $getInvoice->total + $ppn;
 
             					echo"
 
@@ -265,7 +295,7 @@ echo"
 
 								<th>PPN 10%:</th>
 
-								<td class='text-right'>Rp. ".number_format($ppn,2,',','.')."</td>
+								<td class='text-right'>Rp. ".number_format(ceil($ppn),2,',','.')."</td>
 
 								</tr>
 
@@ -273,7 +303,7 @@ echo"
 
 									<th>Total:</th>
 
-									<td class='text-right text-primary'><h5 class='text-semibold'>Rp. ".number_format($grandttl,2,',','.')."</h5></td>
+									<td class='text-right text-primary'><h5 class='text-semibold'>Rp. ".number_format($grandTotal,2,',','.')."</h5></td>
 
 								</tr>
 
