@@ -88,7 +88,8 @@ echo"
 
 				<ul class='list-condensed list-unstyled invoice-payment-details'>
 
-					<li><h5>Total Due: <span class='text-right text-semibold'>Rp. ".number_format(ceil($getInvoice->total),2,',','.')."</span></h5></li>
+					<!--<li><h5>Total Due: <span class='text-right text-semibold'>Rp. ".number_format(ceil($getInvoice->total),2,',','.')."</span></h5></li>-->
+					<li><h5>Total Due: <span class='text-right text-semibold'>Rp. ".number_format(round($getInvoice->total),2,',','.')."</span></h5></li>
 
 					<li>Nama Bank: <span class='text-semibold'>".$getPerusahaan->bank_name."</span></li>
 
@@ -120,9 +121,9 @@ echo"
 
 	                <th class='col-sm-1'>Harga Satuan</th>
 
-	                <th class='col-sm-1'>Qty</th>
+					<th class='col-sm-1'>Include Diskon</th>
 
-	                <th class='col-sm-1'>Include Diskon</th>
+	                <th class='col-sm-1'>Qty</th>
 
 	                <th class='col-sm-1'>Harga Total</th>
 
@@ -155,11 +156,9 @@ echo"
 
 	                <td class='text-right'>".number_format(round($detailInvoice->price),2,',','.')."</td>
 
-	                <td>".$detailInvoice->qty_kirim." ".$detailInvoice->satuan."</td>
-
-	                <!--<td>".$detailInvoice->dsc."%</td>-->
-
 					<td>".floor($diskon)."%</td>
+
+	                <td>".$detailInvoice->qty_kirim." ".$detailInvoice->satuan."</td>
 
 	                <td class='text-right'><span class='text-semibold'>".number_format(round($detailInvoice->ttl_price),2,',','.')."</span></td>
 
@@ -273,6 +272,7 @@ echo"
 
 									<th>Total:</th>
 
+									<!--<td class='text-right text-primary'><h5 class='text-semibold'>Rp. ".number_format($grandttl,2,',','.')."</h5></td>-->
 									<td class='text-right text-primary'><h5 class='text-semibold'>Rp. ".number_format($grandttl,2,',','.')."</h5></td>
 
 								</tr>

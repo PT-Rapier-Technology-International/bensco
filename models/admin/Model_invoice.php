@@ -1317,9 +1317,11 @@ class Model_invoice extends CI_Model {
 
 	public function getInvoiceDetailByInvoiceId($id){
 
-		$this->db->select('id.*,pc.product_name newname');
+		$this->db->select('id.*,pc.product_name newname, pc.normal_price netprice, i.total total');
 
 		$this->db->join('product pc','pc.product_code = id.product_code');
+
+		$this->db->join('invoice i','i.id = id.invoice_id');
 
 		$this->db->where('invoice_id',$id);
 

@@ -501,9 +501,10 @@ if(isset($_SESSION['rick_auto']['filter_start_date']) && $_SESSION['rick_auto'][
 							$ppn = $invoice->total_before_ppn * 10 / 100;
 
 	            			$grandTotal = ceil($invoice->total_before_ppn) + ceil($ppn);
+	            			
 							echo"
 
-							<h6 class='text-semibold text-right no-margin-top'>Rp. ".number_format(ceil($grandTotal),0,',','.')."</h6>";
+							<h6 class='text-semibold text-right no-margin-top'>Rp. ".number_format(round($grandTotal),0,',','.')."</h6>";
 
 							if($invoice->pay_status == 0){
 
