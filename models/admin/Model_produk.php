@@ -336,6 +336,7 @@ class Model_produk extends CI_Model {
 		$this->db->where('ls.to_gudang_id',$_SESSION['rick_auto']['filter_gudangto_lt']);
 		}
 		$this->db->order_by('ls.id','DESC');
+		// $this->db->order_by('create_date','DESC');
 		return $this->db->get('log_stok ls');
 	}
 

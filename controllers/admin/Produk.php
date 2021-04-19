@@ -2158,7 +2158,8 @@ class Produk extends CI_Controller
         $cmbGudangFrom = $this->input->post('cmbGudangFrom');
         $cmbGudangTo = $this->input->post('cmbGudangTo');
         $txtNoT = $this->input->post('txtNoT');
-        $txtTglMutasi = date("Y-m-d H:i:s",strtotime($this->input->post('txtTglMutasi')));
+        $txtTglMutasi = date("Y-m-d H:i:s",strtotime($this->input->post('txtTglMutasi').date("H:i:s")));
+        // print_r($txtTglMutasi);
         for($i=1; $i<=$jmlProduk; $i++){
             $cmbProduk = $this->input->post('cmbProduk_'.$i);
             
@@ -2181,7 +2182,8 @@ class Produk extends CI_Controller
                 ->set('to_perusahaan_id',$cmbPerusahaanFrom)
                 ->set('to_gudang_id',$cmbGudangTo)
                 ->set('from_stok',$getDataStok->row()->jmlStok)
-                ->set('to_stok',$addStok)->set('create_date',$txtTglMutasi)
+                ->set('to_stok',$addStok)
+                ->set('create_date',$txtTglMutasi)
                 ->set('create_user',$_SESSION['rick_auto']['username'])->insert('log_stok');
                 if($insertLog1){
                     // $update = $this->db->set('stok',$getPenguranganStok)->where('id',$getDataStok->row()->id)->update('product_perusahaan_gudang');
