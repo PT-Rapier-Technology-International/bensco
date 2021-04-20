@@ -1570,13 +1570,17 @@ class Produk extends CI_Controller
             $addStok  = $this->input->post('addStok_' . $data->id);
             $getStokGudang = $this->model_master->getStokbyGudangbyProductPerusahaan($data->produk_id, $getData->perusahaan_id, $getData->gudang_id);
             $getPerusahaanGudang = $this->model_master->getPerusahaanGudangByGudang($getData->perusahaan_id, $getData->gudang_id)->row();
-            if ($getStokGudang->num_rows() > 0) {
-                $deleteStok = $this->db->where('product_id', $data->produk_id)->where('perusahaan_gudang_id', $getPerusahaanGudang->id)->delete('product_perusahaan_gudang');
-                if ($deleteStok) {
+            if ($addStok < 0){
+                echo "";
+            }else{
+                if ($getStokGudang->num_rows() > 0) {
+                    $deleteStok = $this->db->where('product_id', $data->produk_id)->where('perusahaan_gudang_id', $getPerusahaanGudang->id)->delete('product_perusahaan_gudang');
+                    if ($deleteStok) {
+                        $insert = $this->db->set('product_id', $data->produk_id)->set('perusahaan_gudang_id', $getPerusahaanGudang->id)->set('stok', $addStok)->insert('product_perusahaan_gudang');
+                    }
+                } else {
                     $insert = $this->db->set('product_id', $data->produk_id)->set('perusahaan_gudang_id', $getPerusahaanGudang->id)->set('stok', $addStok)->insert('product_perusahaan_gudang');
                 }
-            } else {
-                $insert = $this->db->set('product_id', $data->produk_id)->set('perusahaan_gudang_id', $getPerusahaanGudang->id)->set('stok', $addStok)->insert('product_perusahaan_gudang');
             }
         }
         if ($insert) {
@@ -1845,7 +1849,7 @@ class Produk extends CI_Controller
             // print_r($addStok);
             // print_r($addStok);
             $note    = $this->input->post('note_'.$produk->id);
-            if($addStok == null || $addStok == "null"){
+            if($addStok == null || $addStok == "null" || $getStok->row()->jmlStok + $addStok < 0){
                 echo "";
             }else{
                 if($getStok->row()->jmlStok > null){
@@ -1881,9 +1885,9 @@ class Produk extends CI_Controller
                     $insert_opname_stok = $this->db->set('product_id',$produk->id)->set('gudang_id',$getPP->gudang_id)->set('perusahaan_id',$getPP->perusahaan_id)->set('qty_product',0)->set('stock_add',$stok)->set('note',$note)->set('create_date',date("Y-m-d H:i:s"))->set('create_user',$_SESSION['rick_auto']['username'])->insert('opname_stock');
                     $insert_opname_stok_bm = $this->db->set('product_id',$produk->id)->set('gudang_id',$getPP->gudang_id)->set('perusahaan_id',$getPP->perusahaan_id)->set('stock_input',$stok)->set('note','Adjusment')->set('keterangan','Adjusment Masuk ('.$note.')')->set('create_date',date("Y-m-d H:i:s"))->set('create_user',$_SESSION['rick_auto']['username'])->insert('report_stok_bm_bl');
                 }
+                echo "1";
             }
         }
-        echo "1";
     }
 
     public function save_stok_2021_03_31()
