@@ -152,12 +152,11 @@ echo "<p style='font-size:12px'>".date("d/m/Y"). "
 					}else if ($detail->qty_receive == 0){
 						echo "0";
 					} else {
-						echo $detail->qty_receive;
+						echo $detail->qty_receive."".$detail->nama_satuan;
 					}
 					echo"</td>
-
+					
 				</tr>";}echo"
-
 			</tbody>
 
 		</table>
