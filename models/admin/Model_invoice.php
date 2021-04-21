@@ -636,7 +636,8 @@ class Model_invoice extends CI_Model {
 			$this->db->where('i.member_id',$_SESSION['rick_auto']['filter_member']);
 
 		}else{
-
+			
+			// $this->db->limit(20);
 		}
 
 
@@ -667,7 +668,7 @@ class Model_invoice extends CI_Model {
 
 		}else{
 
-				$this->db->limit(20);
+				// $this->db->limit(20);
 
 		}
 
@@ -680,6 +681,8 @@ class Model_invoice extends CI_Model {
 
 				$this->db->limit(30);
 			}
+		} else {
+			// $this->db->limit(20);
 		}
 
 

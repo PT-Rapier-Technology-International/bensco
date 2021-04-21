@@ -1785,8 +1785,7 @@ class Produk extends CI_Controller
                     </table>
                     <br>
                     <div align='right'>
-                    <button class='btn btn-primary' type='button'  onclick=javascript:save_stok(" . $id . ")>Simpan Data
-                                </button>
+                    <button class='btn btn-primary' id='btnsave' type='button'  onclick=javascript:save_stok(" . $id . ")>Simpan Data</button>
                     </div>
                 </form>
             </div>

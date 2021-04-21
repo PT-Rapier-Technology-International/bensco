@@ -119,7 +119,7 @@ echo"
         	<a href='#!' onclick=javascript:addProdukMutasi() class='btn btn-primary btn-labeled'><b><i class='icon-plus-circle2'></i></b> Tambah Produk</a>
         </div>
         <div class='text-right'>
-        	<button type='button' onclick=javascript:simpanPembuatanMutasi() class='btn btn-success btn-labeled'><b><i class='icon-floppy-disk'></i></b> Simpan</button>
+        	<button type='button' id='btnmutasi' onclick=javascript:simpanPembuatanMutasi() class='btn btn-success btn-labeled'><b><i class='icon-floppy-disk'></i></b> Simpan</button>
         </div>
     </div>
 
