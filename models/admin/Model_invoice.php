@@ -589,6 +589,8 @@ class Model_invoice extends CI_Model {
 
 			$this->db->where('i.dateorder <',$_SESSION['rick_auto']['filter_end_date']);
 
+		} else {
+			// $this->db->limit(30);
 		}
 
 
@@ -658,7 +660,7 @@ class Model_invoice extends CI_Model {
 
 
 
-		if(isset($_SESSION['rick_auto']['filter_perusahaan']) && $_SESSION['rick_auto']['filter_perusahaan'] != 0){
+		if(isset($_SESSION['rick_auto']['filter_perusahaan']) && $_SESSION['rick_auto']['filter_perusahaan'] != 0 ){
 
 			$string = $_SESSION['rick_auto']['filter_perusahaan'];
 
@@ -668,7 +670,7 @@ class Model_invoice extends CI_Model {
 
 		}else{
 
-				// $this->db->limit(20);
+				$this->db->limit(20);
 
 		}
 
@@ -681,10 +683,7 @@ class Model_invoice extends CI_Model {
 
 				$this->db->limit(30);
 			}
-		} else {
-			// $this->db->limit(20);
-		}
-
+		} 
 
 
 		//var_dump();

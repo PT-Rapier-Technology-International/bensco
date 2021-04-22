@@ -4093,6 +4093,9 @@ class Purchase extends CI_Controller
 
             $totalSemua = 0;
 
+            $existPurchasePoDetailId = $this->db->query("select id from transaction_purchase_detail where transaction_purchase_id = " . $id_recent . "");
+
+            if ($existPurchasePoDetailId->num_rows() == 0 || $existPurchasePoDetailId->num_rows() == null || $existPurchasePoDetailId->num_rows() == '0' || $existPurchasePoDetailId->num_rows() == 'null') {
             foreach ($getProses_perusahaan->result() as $prosesDetail) {
 
                 $subTotal = $subTotal + $prosesDetail->price;
@@ -4206,7 +4209,9 @@ class Purchase extends CI_Controller
                     }
                 }
             }
-
+        } else{
+            $this->db->query("delete from transaction_purchase_detail where transaction_purchase_id = " . $id_recent . "");
+        }
             $updatePo = $this->db->set('sub_total', $subTotal)
                 ->set('total', $totalSemua)
                 ->where('id', $id_recent)
