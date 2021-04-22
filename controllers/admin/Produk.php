@@ -2167,12 +2167,14 @@ class Produk extends CI_Controller
             $cmbProduk = $this->input->post('cmbProduk_'.$i);
             
             $addStok = $this->input->post('addStok_'.$i);
+            $getPerusahaanGudang = $this->model_master->getPerusahaanGudangByGudang($cmbPerusahaanFrom,$cmbGudangFrom)->row();
+            $jmlStok = $this->model_master->getStokPerusahaanGudangByProduk($cmbProduk,$getPerusahaanGudang->id)->row()->jmlStok;
             
-            if($cmbProduk == 0 || $cmbProduk == NULL || $cmbProduk == "NULL" || $cmbProduk == "0" || $cmbGudangFrom == 0 || $cmbGudangFrom == NULL || $cmbGudangFrom == "NULL" || $cmbGudangFrom == "0"){
+            if($cmbProduk == 0 || $cmbProduk == NULL || $cmbProduk == "NULL" || $cmbProduk == "0" || $cmbGudangFrom == 0 || $cmbGudangFrom == NULL || $cmbGudangFrom == "NULL" || $cmbGudangFrom == "0" || $addStok < 0 || $jmlStok < $addStok){
                 $insert = "";
                 echo "2";
             }else{
-                $getPerusahaanGudang = $this->model_master->getPerusahaanGudangByGudang($cmbPerusahaanFrom,$cmbGudangFrom)->row();
+                // $getPerusahaanGudang = $this->model_master->getPerusahaanGudangByGudang($cmbPerusahaanFrom,$cmbGudangFrom)->row();
                 $getPerusahaanGudangTo = $this->model_master->getPerusahaanGudangByGudang($cmbPerusahaanFrom,$cmbGudangTo)->row();
                 $getDataStok = $this->model_master->getStokPerusahaanGudangByProduk($cmbProduk,$getPerusahaanGudang->id);
                 $getPenguranganStok = $getDataStok->row()->stok - $addStok;
