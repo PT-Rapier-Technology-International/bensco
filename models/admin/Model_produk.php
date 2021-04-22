@@ -48,7 +48,7 @@ class Model_produk extends CI_Model {
 	}
 
 	public function getProdukSearchPerusahaanAndGudang($search, $column, $perusahaan, $gudang){
-		return $this->db->query("select	ppg.*, g.name AS nama_gudang, g.id AS id_gudang, p.name AS nama_perusahaan, p.id AS id_perusahaan, pg.perusahaan_id AS id_perusahaan_pg, pr.id AS id_produk, pr.product_name AS product_name, pr.product_code AS product_code FROM product_perusahaan_gudang ppg JOIN product pr ON ppg.product_id = pr.id JOIN perusahaan_gudang pg ON ppg.perusahaan_gudang_id = pg.id JOIN perusahaan p ON pg.perusahaan_id = p.id JOIN gudang g ON pg.gudang_id = g.id WHERE (pg.perusahaan_id = ".$perusahaan." and pg.gudang_id = ".$gudang.") AND (pr.product_code LIKE '%".$search."%' OR pr.product_name LIKE '%".$search."%') GROUP BY pr.id HAVING SUM(ppg.stok) > 0 LIMIT 10")->result_array();
+		return $this->db->query("SELECT	ppg.*, g.name AS nama_gudang, g.id AS id_gudang, p.name AS nama_perusahaan, p.id AS id_perusahaan, pg.perusahaan_id AS id_perusahaan_pg, pr.id AS id_produk, pr.product_name AS product_name, pr.product_code AS product_code FROM product_perusahaan_gudang ppg JOIN product pr ON ppg.product_id = pr.id JOIN perusahaan_gudang pg ON ppg.perusahaan_gudang_id = pg.id JOIN perusahaan p ON pg.perusahaan_id = p.id JOIN gudang g ON pg.gudang_id = g.id WHERE (pg.perusahaan_id = ".$perusahaan." AND pg.gudang_id = ".$gudang.") AND (pr.product_code LIKE '%".$search."%' OR pr.product_name LIKE '%".$search."%') GROUP BY pr.id HAVING SUM(ppg.stok) > 0 LIMIT 10")->result_array();
 	}
 
 	public function getProducts_(){
