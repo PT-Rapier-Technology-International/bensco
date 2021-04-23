@@ -590,11 +590,7 @@ class Model_invoice extends CI_Model {
 
 			$this->db->where('i.dateorder <=',$_SESSION['rick_auto']['filter_end_date']);
 
-		} else {
-			// $this->db->limit(30);
 		}
-
-
 
 		if(isset($_SESSION['rick_auto']['filter_sales'])){
 
@@ -609,8 +605,6 @@ class Model_invoice extends CI_Model {
 			$this->db->where_in('i.sales_id ',$array);
 
 		}
-
-
 
 		// if(isset($_SESSION['rick_auto']['filter_member']) && $_SESSION['rick_auto']['filter_member'] != '0'){
 
@@ -638,12 +632,7 @@ class Model_invoice extends CI_Model {
 
 			$this->db->where('i.member_id',$_SESSION['rick_auto']['filter_member']);
 
-		}else{
-
-			// $this->db->limit(20);
 		}
-
-
 
 		if(isset($_SESSION['rick_auto']['filter_invoice_no']) && $_SESSION['rick_auto']['filter_invoice_no'] != ""){
 
@@ -653,13 +642,7 @@ class Model_invoice extends CI_Model {
 
 			$this->db->like('i.nonota ',$_SESSION['rick_auto']['filter_invoice_no']);
 
-		}else{
-
-
-
 		}
-
-
 
 		if(isset($_SESSION['rick_auto']['filter_perusahaan']) && $_SESSION['rick_auto']['filter_perusahaan'] != 0 ){
 
@@ -668,10 +651,6 @@ class Model_invoice extends CI_Model {
 
 
 			$this->db->where('i.perusahaan_id ',$_SESSION['rick_auto']['filter_perusahaan']);
-
-		}else{
-
-				$this->db->limit(20);
 
 		}
 
@@ -700,7 +679,9 @@ class Model_invoice extends CI_Model {
 			}
 		}
 
-
+		if(!isset($_SESSION['rick_auto']['filter_start_date']) && !isset($_SESSION['rick_auto']['filter_end_date']) && !isset($_SESSION['rick_auto']['filter_sales']) && !isset($_SESSION['rick_auto']['filter_member']) && !isset($_SESSION['rick_auto']['filter_invoice_no']) && !isset($_SESSION['rick_auto']['filter_perusahaan'])){
+			$this->db->limit(20);
+		}
 		//var_dump();
 
 		//$this->db->where('MONTH(dateorder)',$month);
