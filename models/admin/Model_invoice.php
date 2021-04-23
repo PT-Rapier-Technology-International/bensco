@@ -146,9 +146,9 @@ class Model_invoice extends CI_Model {
 
 		if(isset($_SESSION['rick_auto']['filter_start_date']) && $_SESSION['rick_auto']['filter_end_date']){
 
-			$this->db->where('i.dateorder >',$_SESSION['rick_auto']['filter_start_date']);
+			$this->db->where('i.dateorder >=',$_SESSION['rick_auto']['filter_start_date']);
 
-			$this->db->where('i.dateorder <',$_SESSION['rick_auto']['filter_end_date']);
+			$this->db->where('i.dateorder <=',$_SESSION['rick_auto']['filter_end_date']);
 
 		}
 
@@ -236,13 +236,14 @@ class Model_invoice extends CI_Model {
 			if (isset($_SESSION['rick_auto']['filter_member']) && $_SESSION['rick_auto']['filter_member']){
 
 				$this->db->where('i.member_id',$_SESSION['rick_auto']['filter_member']);
-				
+
 			} else {
-			
+
 				$this->db->limit(30);
 			}
 
-		} 
+		}
+
 
 
 
@@ -585,9 +586,9 @@ class Model_invoice extends CI_Model {
 
 		if(isset($_SESSION['rick_auto']['filter_start_date']) && $_SESSION['rick_auto']['filter_end_date']){
 
-			$this->db->where('i.dateorder >',$_SESSION['rick_auto']['filter_start_date']);
+			$this->db->where('i.dateorder >=',$_SESSION['rick_auto']['filter_start_date']);
 
-			$this->db->where('i.dateorder <',$_SESSION['rick_auto']['filter_end_date']);
+			$this->db->where('i.dateorder <=',$_SESSION['rick_auto']['filter_end_date']);
 
 		} else {
 			// $this->db->limit(30);
@@ -638,7 +639,7 @@ class Model_invoice extends CI_Model {
 			$this->db->where('i.member_id',$_SESSION['rick_auto']['filter_member']);
 
 		}else{
-			
+
 			// $this->db->limit(20);
 		}
 
@@ -681,9 +682,23 @@ class Model_invoice extends CI_Model {
 
 			} else {
 
-				$this->db->limit(30);
+				// $this->db->limit(5);
 			}
-		} 
+		}
+
+		if (isset($_SESSION['rick_auto']['filter_perusahaan']) && $_SESSION['rick_auto']['filter_perusahaan']){
+			if(isset($_SESSION['rick_auto']['filter_sales']) && $_SESSION['rick_auto']['filter_sales']){
+
+				// $str = $_SESSION['rick_auto']['filter_sales'];
+				// $arr = explode(',', $str);
+				// $this->db->where_in('i.sales_id ',$arr);
+
+				$this->db->where('i.sales_id',$_SESSION['rick_auto']['filter_sales']);
+
+			} else {
+				// $this->db->limit(5);
+			}
+		}
 
 
 		//var_dump();

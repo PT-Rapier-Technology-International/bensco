@@ -1,5 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-  
+
 /*
 * CONTROLLER INDEX WEBSITE
 * This controler for screen index
@@ -27,7 +27,7 @@ class Invoice extends CI_Controller {
         $this->data['getMembers'] = $this->model_master->getAllMembers();
         $this->template->rick_auto('invoice/bg_list_member',$this->data);
     }
-    
+
     // fungsi untuk mengecek apakah user sudah login
     public function invoice_detail_(){
         $member = base64_decode($this->uri->segment(4));
@@ -63,7 +63,7 @@ class Invoice extends CI_Controller {
             // }else{
                 $insert_sales_fee = $this->db->set('invoice_id',$nota->invoice_id)->set('sales_id',$nota->id_sales)->set('fee',$fee)->insert('transaction_sales_fee');
             //}
-        } 
+        }
 
         $update_status_payment_invoice = $this->db->set('flag',1)->where('no_tanda_terima',$nota->no_tanda_terima)->update('invoice_payment');
         $insert_role = $this->db->set('no_transaction',$nota->no_tanda_terima)
@@ -86,7 +86,7 @@ class Invoice extends CI_Controller {
 
     public function filterBulan(){
         $_SESSION['rick_auto']['filter_bulan'] = $this->input->post('cmbBulan');
-        
+
     }
 
     public function invoice_detail(){
@@ -96,20 +96,20 @@ class Invoice extends CI_Controller {
             $bulan_sekarang = date('m', strtotime(date('Y-m-d')));
         }
         $uri4 = $this->uri->segment(4);
-        
+
         $member = base64_decode($this->uri->segment(4));
         $flag = $this->uri->segment(5);
         $this->data['getPerusahaan'] = $this->model_master->getPerusahaan();
         // if(isset($_SESSION['rick_auto']['filter_start_date']) && $_SESSION['rick_auto']['filter_end_date'] && $_SESSION['rick_auto']['filter_sales']){
         //     $this->data['getInvoice'] = $this->model_invoice->getInvoiceByMembers($member,0);
         // }else{
-        //     $this->data['getInvoice'] = $this->model_invoice->getAllInvoiceByMembers($member);    
+        //     $this->data['getInvoice'] = $this->model_invoice->getAllInvoiceByMembers($member);
         // }
         //$this->data['getInvoice'] = $this->model_invoice->getInvoiceByMembers($member,0);
         if($uri4 == ""){
         $this->data['getInvoice'] = $this->model_invoice->getInvoiceByAllMemberss();
         }else{
-        $this->data['getInvoice'] = $this->model_invoice->getInvoiceByAllMembers(0);    
+        $this->data['getInvoice'] = $this->model_invoice->getInvoiceByAllMembers(0);
         }
         $this->data['getMember'] = $this->model_master->getAllMembers();
         $this->data['getCity'] = $this->model_master->getCity();
@@ -118,6 +118,7 @@ class Invoice extends CI_Controller {
         //$this->data['getPiutang'] = $this->model_invoice->getPaymentCustomer($member);
         $this->data['getSales'] = $this->model_master->getSales();
         $this->template->rick_auto('invoice/bg_index',$this->data);
+        // $this->output->enable_profiler(TRUE);
 
     }
 
@@ -134,10 +135,10 @@ class Invoice extends CI_Controller {
         $tt_no = $this->input->post('tt_no');
         $cmbPerusahaanFilter = $this->input->post('cmbPerusahaanFilter');
 
-        
+
         $_SESSION['rick_auto']['filter_invoice_no_tt'] = $invoice_no;
         $_SESSION['rick_auto']['filter_no_tt'] = $tt_no;
-        $_SESSION['rick_auto']['filter_perusahaan_tt'] = $cmbPerusahaanFilter;    
+        $_SESSION['rick_auto']['filter_perusahaan_tt'] = $cmbPerusahaanFilter;
     }
 
 
@@ -162,7 +163,7 @@ class Invoice extends CI_Controller {
     public function filter(){
         $start_date = date("Y-m-d",strtotime("+0 day", strtotime($this->input->post('start_date'))));
         $end_date = date("Y-m-d",strtotime("+1 day", strtotime($this->input->post('end_date'))));
-        $cmbSales = $this->db->escape_str($this->input->post('cmbSales')); 
+        $cmbSales = $this->db->escape_str($this->input->post('cmbSales'));
         $invoice_no = $this->input->post('invoice_no');
         $cmbPerusahaanFilter = $this->input->post('cmbPerusahaanFilter');
         $cmbMemberFilter = $this->input->post('cmbMemberFilter');
@@ -184,7 +185,7 @@ class Invoice extends CI_Controller {
 
 
         $_SESSION['rick_auto']['filter_invoice_no'] = $invoice_no;
-        
+
         if($cmbPerusahaanFilter == null || $cmbPerusahaanFilter == "" || $cmbPerusahaanFilter == "null"){
 
         }else{
@@ -192,9 +193,9 @@ class Invoice extends CI_Controller {
         }
 
         //echo $invoice_no;
-        
+
         //echo $_SESSION['rick_auto']['filter_member'];
-    }   
+    }
 
     public function show_detail(){
         $id = $this->input->post('id');
@@ -241,7 +242,7 @@ class Invoice extends CI_Controller {
                 $content = $this->load->view('admin/invoice/bg_print_pdf',$this->data,TRUE);
                 $this->template->print2pdf('Print_PDF',$content,'Print_INvoice_RickAuto');
             }
-            
+
         }
         // if($cekInvoice->perusahaan_id == 4){
         //     $this->load->view('admin/invoice/bg_print_ertraco',$this->data);
@@ -405,11 +406,11 @@ class Invoice extends CI_Controller {
                         if($update_status_invoice){
                         $insertPiutang = $this->db->set('invoice_id',$nota->invoice_id)->set('no_tt',$no_tanda_terima)->set('invoice_payment_id',$idPayment)->set('payment_id',$cmbPembayaran)->set('total',$sisa_pembayaran)->set('sisa',$total)->set('tanggal',date("Y-m-d",strtotime("+0 day", strtotime($tanggal))))->set('flag',1)->insert('invoice_piutang');
                         }
-                    }  
+                    }
 
                     $update_status_payment_invoice = $this->db->set('flag',0)->set('flag_giro_cek',1)->where('member_id',$member_id)->where('no_tanda_terima',$no_tanda_terima)->update('invoice_payment');
 
-                                    
+
                 }else{
                // $update_status_invoice = $this->db->set('pay_status',1)->where('member_id',$member_id)->where('pay_status',0)->update('invoice');
                 $data_nota = $this->model_invoice->getTandaTerimaByNoTandaTerima($no_tanda_terima);
@@ -427,12 +428,12 @@ class Invoice extends CI_Controller {
                         }else{
                             $insert_sales_fee = $this->db->set('invoice_id',$nota->invoice_id)->set('sales_id',$nota->id_sales)->set('fee',$fee)->insert('transaction_sales_fee');
                         }
-                    } 
+                    }
                     $insertPiutang = $this->db->set('invoice_id',$nota->invoice_id)->set('no_tt',$no_tanda_terima)->set('invoice_payment_id',$idPayment)->set('total',$sisa_pembayaran)->set('sisa',$total)->set('payment_id',$cmbPembayaran)->set('tanggal',strtotime("+0 day", strtotime($tanggal)))->set('flag',1)->insert('invoice_piutang');
                 }
 
                 $update_status_payment_invoice = $this->db->set('flag',1)->where('member_id',$member_id)->where('no_tanda_terima',$no_tanda_terima)->update('invoice_payment');
-                
+
                 $insert_role = $this->db->set('no_transaction',$no_tanda_terima)
                                 ->set('flag_level',$_SESSION['rick_auto']['flag_user'])
                                 ->set('user',$_SESSION['rick_auto']['fullname'])
@@ -457,7 +458,7 @@ class Invoice extends CI_Controller {
                         // }else{
                             $insert_sales_fee = $this->db->set('invoice_id',$nota->invoice_id)->set('sales_id',$nota->id_sales)->set('fee',$fee)->insert('transaction_sales_fee');
                         //}
-                    } 
+                    }
 
                     $update_status_payment_invoice = $this->db->set('flag',1)->where('no_tanda_terima',$nota->no_tanda_terima)->update('invoice_payment');
                     $insert_role = $this->db->set('no_transaction',$nota->no_tanda_terima)
@@ -470,7 +471,7 @@ class Invoice extends CI_Controller {
 
             echo "1";
         }
-    } 
+    }
 
     public function saveReturRevisi_210820(){
         $txtnoTT = $this->input->post('txtnoTT');
@@ -520,13 +521,13 @@ class Invoice extends CI_Controller {
                     $getKodeBayanganPcs = $this->model_produk->getProductsByKodeAndSatuan($getProdukByCode->product_code_shadow,"Pcs")->row();
                     $cekProduk_ = $this->model_produk->getProductById($getKodeBayanganSet->id)->row();
                     $cekStok = $this->model_master->getGudangbyProductPerusahaan($getKodeBayanganPcs->id,$dataInv->perusahaan_id,$detailInvoice->gudang_id)->row();
-                    
+
                     $kurang = $txtQty - $txtQtyOld;
                     $qtyKurangLiner = $kurang * $cekProduk_->satuan_value;
                     $pengurangan_stok = $cekStok->stok - $qtyKurangLiner;
-                    $update_stok = $this->db->set('stok',$pengurangan_stok)->where('id',$cekStok->id)->update('product_perusahaan_gudang');   
+                    $update_stok = $this->db->set('stok',$pengurangan_stok)->where('id',$cekStok->id)->update('product_perusahaan_gudang');
                     }
-                
+
                 }
 
                 $produk_id = $this->model_produk->getProductByCode($detailInvoice->product_code)->row();
@@ -534,7 +535,7 @@ class Invoice extends CI_Controller {
                 if($stokPeng > 0){
                 $insert_opname_stok_bm = $this->db->set('product_id',$produk_id->id)->set('transaction_no',$txtnoTransaksi)->set('gudang_id',$detailInvoice->gudang_id)->set('perusahaan_id',$getInvoice->perusahaan_id)->set('stock_input',$stokPeng)->set('note','Retur Barang Masuk')->set('keterangan','Retur Barang Masuk dari No. Invoice '.$txtnoInvoice.'')->set('invoice_id',$txtidInvoice)->set('create_date',date("Y-m-d H:i:s"))->set('create_user',$_SESSION['rick_auto']['username'])->insert('report_stok_bm_bl');
                 }
-                
+
             }
 
             $insertPayment = $this->db->set('no_tanda_terima',$txtnoTT)->set('member_id',$txtMemberId)->set('payment_id',$txtJenis)->set('payment_date',$txtPaymentDate)->set('cicilan_ke',$hitung)->insert('invoice_payment');
@@ -575,13 +576,13 @@ class Invoice extends CI_Controller {
                     $getKodeBayanganPcs = $this->model_produk->getProductsByKodeAndSatuan($getProdukByCode->product_code_shadow,"Pcs")->row();
                     $cekProduk_ = $this->model_produk->getProductById($getKodeBayanganSet->id)->row();
                     $cekStok = $this->model_master->getGudangbyProductPerusahaan($getKodeBayanganPcs->id,$dataInv->perusahaan_id,$detailInvoice->gudang_id)->row();
-                    
+
                     $kurang = $txtQty - $txtQtyOld;
                     $qtyKurangLiner = $kurang * $cekProduk_->satuan_value;
                     $pengurangan_stok = $cekStok->stok - $qtyKurangLiner;
-                    $update_stok = $this->db->set('stok',$pengurangan_stok)->where('id',$cekStok->id)->update('product_perusahaan_gudang');   
+                    $update_stok = $this->db->set('stok',$pengurangan_stok)->where('id',$cekStok->id)->update('product_perusahaan_gudang');
                     }
-                    
+
                 }
                 $stokPeng = $txtQtyOld - $txtQty;
                 $produk_id = $this->model_produk->getProductByCode($detailInvoice->product_code)->row();
@@ -589,7 +590,7 @@ class Invoice extends CI_Controller {
                 $insert_opname_stok_bm = $this->db->set('product_id',$produk_id->id)->set('transaction_no',$txtnoTransaksi)->set('gudang_id',$detailInvoice->gudang_id)->set('perusahaan_id',$getInvoice->perusahaan_id)->set('stock_input',$stokPeng)->set('note','Retur Barang Masuk')->set('keterangan','Retur Barang Masuk dari No. Invoice '.$txtnoInvoice.'')->set('invoice_id',$txtidInvoice)->set('create_date',date("Y-m-d H:i:s"))->set('create_user',$_SESSION['rick_auto']['username'])->insert('report_stok_bm_bl');
                 }
 
-                
+
             }
 
             $insertPayment = $this->db->set('no_tanda_terima',$txtnoTT)->set('member_id',$txtMemberId)->set('payment_id',$txtJenis)->set('payment_date',$txtPaymentDate)->set('cicilan_ke',$hitung)->insert('invoice_payment');
@@ -609,7 +610,7 @@ class Invoice extends CI_Controller {
     }
 
 
-    }   
+    }
 
     public function saveReturRevisi(){
         $txtnoTT = $this->input->post('txtnoTT');
@@ -675,7 +676,7 @@ class Invoice extends CI_Controller {
                     $getKodeBayanganPcs = $this->model_produk->getProductsByKodeAndSatuan($getProdukByCode->product_code_shadow,"Pcs")->row();
                     $cekProduk_ = $this->model_produk->getProductById($getKodeBayanganSet->id)->row();
                     $cekStok = $this->model_master->getGudangbyProductPerusahaan($getKodeBayanganPcs->id,$dataInv->perusahaan_id,$detailInvoice->gudang_id)->row();
-                    
+
                     //$kurang = $txtQty - $txtQtyOld;
                     $kurang = ($txtQtyOld - $txtQty) * $cekProduk_->satuan_value;
                 }else{
@@ -686,9 +687,9 @@ class Invoice extends CI_Controller {
 
                     //$qtyKurangLiner = $kurang * $cekProduk_->satuan_value;
                     //$pengurangan_stok = $cekStok->stok - $qtyKurangLiner;
-                    $update_stok = $this->db->set('stok',$pengurangan_stok)->where('id',$cekStok->id)->update('product_perusahaan_gudang');   
+                    $update_stok = $this->db->set('stok',$pengurangan_stok)->where('id',$cekStok->id)->update('product_perusahaan_gudang');
                     }
-                    
+
                 }
                 $stokPeng = $txtQtyOld - $txtQty;
                 $produk_id = $this->model_produk->getProductByCode($detailInvoice->product_code)->row();
@@ -696,7 +697,7 @@ class Invoice extends CI_Controller {
                 $insert_opname_stok_bm = $this->db->set('product_id',$produk_id->id)->set('transaction_no',$txtnoTransaksi)->set('gudang_id',$detailInvoice->gudang_id)->set('perusahaan_id',$getInvoice->perusahaan_id)->set('stock_input',$stokPeng)->set('note','Retur Barang Masuk')->set('keterangan','Retur Barang Masuk dari No. Invoice '.$txtnoInvoice.'')->set('invoice_id',$txtidInvoice)->set('create_date',date("Y-m-d H:i:s"))->set('create_user',$_SESSION['rick_auto']['username'])->insert('report_stok_bm_bl');
                 }
 
-                
+
             }
 
             $insertPayment = $this->db->set('no_tanda_terima',$txtnoTT)->set('member_id',$txtMemberId)->set('payment_id',$txtJenis)->set('payment_date',$txtPaymentDate)->set('cicilan_ke',$hitung)->insert('invoice_payment');
@@ -715,7 +716,7 @@ class Invoice extends CI_Controller {
         echo "1";
 
 
-    }   
+    }
 
     public function simpanReturRevisiPembayaran(){
         $cmbRetRev = $this->input->post('cmbRetRev');
@@ -765,10 +766,10 @@ class Invoice extends CI_Controller {
 
                     }else{
                         $insert_sales_fee = $this->db->set('invoice_id',$invMember->id)->set('sales_id',$invMember->sales_id)->set('fee',$fee)->insert('transaction_sales_fee');
-                    } 
+                    }
 
                     // $detailInvoice = $this->model_invoice->getInvoiceDetailByInvoiceId($invMember->id);
-                    
+
                     // foreach($detailInvoice->result() as $detailInv){
                     //     $data_produk = $this->model_produk->getProductByCode($detailInv->product_code)->row();
                     //     $cekStok = $this->model_master->getGudangbyProductPerusahaan($data_produk->id,$invMember->perusahaan_id,$detailInv->gudang_id)->row();
@@ -973,7 +974,7 @@ class Invoice extends CI_Controller {
 
         //$cekData = $this->model_invoice->getInvoiceTandaTerimaByNOTT($namaptsj);
         //$cekData = $this->model_invoice->getInvoiceTandaTerimaByNOTTMmeber($namaptsjj,$data->member_id);
-        
+
         $tanggal_hari_ini = date("dmyhis");
         if($cekData->num_rows() > 0){
             //$noGen = explode("-",$cekData->row()->no_tanda_terima);
@@ -988,7 +989,7 @@ class Invoice extends CI_Controller {
             if($insert){
             $getInvoice  = $this->model_invoice->getInvoiceByIdd($data->id)->row();
             $insert_payment = $this->db->set('no_tanda_terima',$nott)->set('member_id',$data->member_id)->set('payment_id',2)->set('payment_date',date("Y-m-d H:i:s"))->set('liquid_date',date("Y-m-d H:i:s"))->set('sudah_dibayar',str_replace(".","",0))->set('sisa',$getInvoice->total)->set('total_pembayaran',$getInvoice->total)->set('cicilan_ke',0)->insert('invoice_payment');
-            
+
                 if($insert_payment){
                     $update = $this->db->set('flag_tanda_terima',1)->where('id',$data->id)->update('invoice');
                 }
@@ -1002,7 +1003,7 @@ class Invoice extends CI_Controller {
             }
 
             //if($insert){
-                
+
             //}
         }
 
@@ -1054,7 +1055,7 @@ class Invoice extends CI_Controller {
 
         $cekData = $this->model_invoice->getInvoiceTandaTerimaByNOTT($namaptsjs);
         //$cekData = $this->model_invoice->getInvoiceTandaTerimaByNOTTMmeber($namaptsjj,$data->member_id);
-        
+
         $tanggal_hari_ini = date("dmyhis");
         if($cekData->num_rows() > 0){
             //$noGen = explode("-",$cekData->row()->no_tanda_terima);
@@ -1071,12 +1072,12 @@ class Invoice extends CI_Controller {
             $insert = $this->db->set('no_tanda_terima',$nott)->set('no_tanda_terima_temp',$nottt)->set('invoice_id',$data->id)->set('member_id',$data->member_id)->set('perusahaan_id',$data->perusahaan_id)->set('nilai',$data->total)->set('create_date',date("Y-m-d H:i:s"))->set('create_user',$_SESSION['rick_auto']['username'])->set('invoice_date',date("Y-m-d",strtotime($getDataRow->dateorder)))->insert('invoice_tanda_terima_temp');
 
             if($insert){
-               
+
                 $updates = $this->db->set('flag_tanda_terima',1)->set('invoice_date_tt',date("Y-m-d",strtotime($getDataRow->dateorder)))->where('id',$data->id)->update('invoice');
             }
 
             //if($insert){
-                
+
             //}
         }
 
@@ -1092,22 +1093,22 @@ class Invoice extends CI_Controller {
     }
 
     public function process_tanda_terima_insert(){
-        
+
         $getDataTemps = $this->model_invoice->getTandaTerimaTemps();
         //$no = 0;
         foreach($getDataTemps->result() as $dataTemp){
-            
+
             //$getDataTempsPerusahaan = $this->model_invoice->getTandaTerimaTempsByPerusahaanTTTemp($dataTemp->perusahaan_id,$dataTemp->no_tanda_terima_temp);
             //foreach($getDataTempsPerusahaan->result() as $dataPerusahaan){
             //$jmlData = $this->model_invoice->getCountTandaTerimaTempsByPerusahaanTTTemp($dataTemp->perusahaan_id)->row();
             // if($jmlData->jmlData > 1){
             // $jmlDatas = 1;
             // }else{
-            //  $jmlDatas = $jmlData->jmlData - 1;   
+            //  $jmlDatas = $jmlData->jmlData - 1;
             // }
-            //$jmlDatas = $jmlData->jmlData - 1;  
+            //$jmlDatas = $jmlData->jmlData - 1;
             $jmlData = $this->model_invoice->getCountTandaTerimaTempsByPerusahaanTTTemp($dataTemp->perusahaan_id)->num_rows();
-            //$jmlDatas = $jmlData - 1; 
+            //$jmlDatas = $jmlData - 1;
             //$s = 0-1;
             for($i=0;$i<=$jmlData;$i++){
             //echo $i;
@@ -1145,7 +1146,7 @@ class Invoice extends CI_Controller {
 
         foreach($getTTTemp->result() as $gtt){
             $gtt_nott = explode("-",$gtt->no_tanda_terima);
-            $ngtt = $gtt_nott[1] - 1; 
+            $ngtt = $gtt_nott[1] - 1;
             $noTT = $gtt_nott[0]."-".sprintf("%'.04d", $ngtt);
             $insert = $this->db->set('no_tanda_terima',$noTT)->set('no_tanda_terima_temp',$gtt->no_tanda_terima_temp)->set('invoice_id',$gtt->invoice_id)->set('member_id',$gtt->member_id)->set('resi_no',$gtt->resi_no)->set('expedisi',$gtt->expedisi)->set('delivery_date',$gtt->delivery_date)->set('nilai',$gtt->nilai)->set('create_date',$gtt->create_date)->set('create_user',$gtt->create_user)->set('invoice_date',$gtt->invoice_date)->insert('invoice_tanda_terima');
              $getInvoice  = $this->model_invoice->getInvoiceByIdd($gtt->invoice_id)->row();
@@ -1161,17 +1162,17 @@ class Invoice extends CI_Controller {
         if($insert){
             $this->db->query('TRUNCATE TABLE invoice_tanda_terima_temp');
             echo "1";
-            
+
         }
 
     }
 
     public function process_tanda_terima_insert_(){
-        
+
         $getDataTemps = $this->model_invoice->getTandaTerimaTemps();
         $no = 0;
         foreach($getDataTemps->result() as $dataTemp){
-            
+
             //$getDataTempsPerusahaan = $this->model_invoice->getTandaTerimaTempsByPerusahaanTTTemp($dataTemp->perusahaan_id,$dataTemp->no_tanda_terima_temp);
             //foreach($getDataTempsPerusahaan->result() as $dataPerusahaan){
             $no++;
@@ -1199,7 +1200,7 @@ class Invoice extends CI_Controller {
         if($insert){
             $this->db->query('TRUNCATE TABLE invoice_tanda_terima_temp');
             echo "1";
-            
+
         }
 
     }
@@ -1246,7 +1247,7 @@ class Invoice extends CI_Controller {
                         <div class='form-group'>
                             <label>Tanggal Kirim: </label>
                             <input type='date' id='delivery_date_".$data->id."' name='delivery_date_".$data->id."' class='form-control' data-mask='99/99/9999' placeholder='Masukkan Tanggal Kirim' value='".$date_kirim."'>
-                        </div>                 
+                        </div>
                     </div>
 
                     <div class='col-md-6'>
@@ -1279,7 +1280,7 @@ class Invoice extends CI_Controller {
                         </div>
                     </div>
 
-                </div>  
+                </div>
             </div>
         <script>
         $('#expedisi_".$data->id."').select2();
@@ -1319,7 +1320,7 @@ class Invoice extends CI_Controller {
                         <div class='form-group'>
                             <label>Tanggal Kirim: </label>
                             <input type='date' id='delivery_date' name='delivery_date' class='form-control' data-mask='99/99/9999' placeholder='Masukkan Tanggal Kirim' value='".$date_kirim."'>
-                        </div>                 
+                        </div>
                     </div>
 
                     <div class='col-md-4'>
@@ -1345,7 +1346,7 @@ class Invoice extends CI_Controller {
                         </div>
                     </div>
 
-                </div>  
+                </div>
             </div>
         </div>
         <!-- /masked inputs -->
@@ -1355,7 +1356,7 @@ class Invoice extends CI_Controller {
 
     public function save_input_pengiriman(){
         $nott = $this->input->post('nott');
-        
+
         $Data = $this->model_invoice->getTandaTerimaByNoTandaTerimaPerusahaanNoGroup($nott);
         foreach($Data->result() as $data){
             $no_resi = $this->input->post('resi_no_'.$data->id);
@@ -1392,7 +1393,7 @@ class Invoice extends CI_Controller {
     public function simpanAjax(){
         $txtTotalSatuan = $this->input->post('txtTotalSatuan');
         $txtQty = $this->input->post('txtQty');
-        
+
         $total = $txtTotalSatuan * $txtQty;
         $ppn = $total * 10 / 100;
         $grandTotal = $total + $ppn;
@@ -1432,7 +1433,7 @@ class Invoice extends CI_Controller {
 
         $_SESSION['rick_auto']['filter_member_rr'] = $cmbMemberFilter;
         $_SESSION['rick_auto']['filter_invoice_no_rr'] = $invoice_no;
-        $_SESSION['rick_auto']['filter_perusahaan_rr'] = $cmbPerusahaanFilter; 
+        $_SESSION['rick_auto']['filter_perusahaan_rr'] = $cmbPerusahaanFilter;
         $_SESSION['rick_auto']['filter_no_retur_revisi']  = $rr_no;
     }
 
@@ -1446,7 +1447,7 @@ class Invoice extends CI_Controller {
     public function report_retur_revisi(){
         $this->data['getData'] = $this->model_invoice->getRevisiReturs();
         $this->data['getPerusahaan'] = $this->model_master->getPerusahaan();
-        $this->template->rick_auto('retur_revisi/bg_report',$this->data); 
+        $this->template->rick_auto('retur_revisi/bg_report',$this->data);
     }
 
     public function report_rekap_invoice(){
@@ -1495,7 +1496,7 @@ class Invoice extends CI_Controller {
                     <td>".$invoice->member_name."</td>
                     <td>".$invoice->kota."</td>
                     <td>".$invoice->expedisi."</td>
-                    <td class='text-right'>".number_format($invoice->total,2,',','.')."</td>                    
+                    <td class='text-right'>".number_format($invoice->total,2,',','.')."</td>
                 </tr>";
             }
     }
@@ -1520,14 +1521,14 @@ class Invoice extends CI_Controller {
         if($cmbTransaksi != 0 || $cmbTransaksi != '0' || $cmbTransaksi != 'null' || $cmbTransaksi != null){
         $_SESSION['rick_auto']['filter_transaksi'] = $cmbTransaksi;
         }
-        
+
         if($no_rr != '' || $no_rr != null){
         $_SESSION['rick_auto']['no_rr'] = $no_rr;
         }
         // $_SESSION['rick_auto']['filter_start_date_rrr'] = date("Y-m-d",strtotime("+0 day",strtotime($tanggalFrom)));
         // $_SESSION['rick_auto']['filter_end_date_rrr'] = date("Y-m-d",strtotime("+1 day", strtotime($tanggalTo)));
         $this->data['getData'] = $this->model_invoice->getRevisiReturs();
-        $this->load->view('admin/retur_revisi/bg_report_ajax',$this->data);        
+        $this->load->view('admin/retur_revisi/bg_report_ajax',$this->data);
     }
 
     public function print_report_retur_rev(){
@@ -1541,7 +1542,7 @@ class Invoice extends CI_Controller {
         $content = $this->load->view('admin/retur_revisi/bg_print_report',$this->data,TRUE);
         $this->template->print2pdf('Print_PDF',$content,'Report_Retur_Revisi');
         }
-                 
+
     }
 
     public function report_tanda_terima(){
@@ -1579,9 +1580,9 @@ class Invoice extends CI_Controller {
             $_SESSION['rick_auto']['tanggalfromrtt'] = date("Y-m-d",strtotime("+0 day",strtotime($tanggalFrom)));
             $_SESSION['rick_auto']['tanggaltortt'] = date("Y-m-d",strtotime("+0 day",strtotime($tanggalTo)));
             $_SESSION['rick_auto']['tanggaltorttt'] = date("Y-m-d",strtotime("+1 day", strtotime($tanggalTo)));
-           
+
         }
-        
+
         //$_SESSION['rick_auto']['cityrtt'] = $city;
         //echo $_SESSION['rick_auto']['salesrtt'];
     }
@@ -1659,8 +1660,8 @@ class Invoice extends CI_Controller {
             $content = $this->load->view('admin/report_barang/bg_report_masuk_export',$this->data,TRUE);
             $this->template->print2pdf('Print_PDF',$content,'Report_Barang_Masuk');
         }
-        
-        
+
+
 
     }
 
@@ -1725,7 +1726,7 @@ class Invoice extends CI_Controller {
         $this->data['getPerusahaan'] = $this->model_master->getPerusahaan();
         $this->data['getMember'] = $this->model_master->getAllMembers();
         $this->data['getPayments'] = $this->model_master->getPayments();
-        
+
         $this->template->rick_auto('report_barang/bg_report_piutang',$this->data);
     }
 
@@ -1736,7 +1737,7 @@ class Invoice extends CI_Controller {
         $cmbMember = $this->input->post('cmbMember');
         $tanggalFrom = $this->input->post('tanggalFrom');
         $cmbPayment = $this->input->post('cmbPayment');
-        
+
         //echo $tanggalFrom;
         if($tanggalFrom == "1970-01-01" || $tanggalFrom == ""){
         }else{
@@ -1770,7 +1771,7 @@ class Invoice extends CI_Controller {
         }else{
             $content = $this->load->view('admin/report_barang/bg_report_piutang_export_pdf',$this->data,TRUE);
             $this->template->print2pdf('Print_PDF',$content,'Report_Piutang');
-        }        
+        }
     }
 
 
@@ -1842,8 +1843,8 @@ class Invoice extends CI_Controller {
         $this->data['getDataInvTotal'] = $this->model_invoice->getSumDetailInvoiceFilterStok()->row();
         $this->data['getDataGrTotal'] = $this->model_invoice->getSumProdukBeliDetailFilterStok()->row();
         $this->data['getDataBmBl'] = $this->model_invoice->getSumReportBmBlFilterStok('mutasi,Adjusment,Retur Barang Masuk,Retur Barang Keluar')->row();
-        
-        $this->load->view('admin/report_barang/bg_report_stok_ajax',$this->data);   
+
+        $this->load->view('admin/report_barang/bg_report_stok_ajax',$this->data);
     }
 
     public function filter_report_penjualan(){
@@ -1863,7 +1864,7 @@ class Invoice extends CI_Controller {
         //echo "Produk ".$txtProduk;
         // echo $jenis;
         $this->data['getData'] = $this->model_invoice->getDetailInvoiceFilter();
-        $this->load->view('admin/report_barang/bg_penjualan_ajax',$this->data);   
+        $this->load->view('admin/report_barang/bg_penjualan_ajax',$this->data);
     }
 
     public function print_penjualan(){
@@ -1882,7 +1883,7 @@ class Invoice extends CI_Controller {
         $content = $this->load->view('admin/report_barang/bg_penjualan_export',$this->data,TRUE);
         $this->template->print2pdf('Print_PDF',$content,'Report_BO');
         }
-        
+
     }
 
 

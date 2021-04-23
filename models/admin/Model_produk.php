@@ -190,7 +190,8 @@ class Model_produk extends CI_Model {
 	public function getProductsLimit(){
 		$this->db->select('*');
 		if(isset($_SESSION['rick_auto']['search'])){
-			$this->db->like('product_code',$_SESSION['rick_auto']['search'])->or_like('product_name',$_SESSION['rick_auto']['search']);
+			// $this->db->like('product_code',$_SESSION['rick_auto']['search'])->or_like('product_name',$_SESSION['rick_auto']['search']);
+			$this->db->like('product_code',$_SESSION['rick_auto']['search']);
 		}
 		$this->db->limit('10,0');
 		return $this->db->get('product');

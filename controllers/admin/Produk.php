@@ -1174,7 +1174,7 @@ class Produk extends CI_Controller
                     <input type='type' class='form-control' id='satuan_" . $i . "' name='satuan_" . $i . "' disabled>
                 </div>
             </div>
-        </div>  
+        </div>
         <script>
                $('select[id=cmbProduk_" . $i . "]').select2({
                    ajax: {
@@ -1860,6 +1860,7 @@ class Produk extends CI_Controller
                     'product_id' => $produk->id,
                     'perusahaan_gudang_id' => $id])->update('product_perusahaan_gudang', ['stok' => $stok]);
                     // $qUer = $this->db->set('stok',$addStok)->set('product_id',$produk->id)->set('perusahaan_gudang_id',$id)->insert('product_perusahaan_gudang');
+                    if ($addStok != 0){
                     $insert_opname_stok = $this->db->set('product_id',$produk->id)
                     ->set('gudang_id',$getPP->gudang_id)->set('perusahaan_id',$getPP->perusahaan_id)
                     ->set('qty_product',$getStok->row()->jmlStok)->set('stock_add',$addStok)->set('note',$note)
@@ -1871,8 +1872,9 @@ class Produk extends CI_Controller
                     ->set('create_user',$_SESSION['rick_auto']['username'])->insert('report_stok_bm_bl');
                     }else{
                     $insert_opname_stok_bl = $this->db->set('product_id',$produk->id)->set('gudang_id',$getPP->gudang_id)->set('perusahaan_id',$getPP->perusahaan_id)->set('stock_input',$addStok)->set('note','Adjusment')->set('keterangan','Adjusment Keluar ('.$note.')')->set('create_date',date("Y-m-d H:i:s"))->set('create_user',$_SESSION['rick_auto']['username'])->insert('report_stok_bm_bl');
-                    }
-                }else{
+                  }
+                }
+              }else{
                     // echo "Sempak";
                     $stok = $addStok;
                     // print_r($stok);
@@ -1881,9 +1883,11 @@ class Produk extends CI_Controller
                     ->set('product_id',$produk->id)->set('perusahaan_gudang_id',$id)->insert('product_perusahaan_gudang');
                     // $qUer = $this->db->set('product_id',$produk->id)->set('perusahaan_gudang_id',$id)->set('stok',$addStok)->insert('product_perusahaan_gudang');
                     // print_r($stok);
+                    if ($stok != 0){
                     $insert_opname_stok = $this->db->set('product_id',$produk->id)->set('gudang_id',$getPP->gudang_id)->set('perusahaan_id',$getPP->perusahaan_id)->set('qty_product',0)->set('stock_add',$stok)->set('note',$note)->set('create_date',date("Y-m-d H:i:s"))->set('create_user',$_SESSION['rick_auto']['username'])->insert('opname_stock');
                     $insert_opname_stok_bm = $this->db->set('product_id',$produk->id)->set('gudang_id',$getPP->gudang_id)->set('perusahaan_id',$getPP->perusahaan_id)->set('stock_input',$stok)->set('note','Adjusment')->set('keterangan','Adjusment Masuk ('.$note.')')->set('create_date',date("Y-m-d H:i:s"))->set('create_user',$_SESSION['rick_auto']['username'])->insert('report_stok_bm_bl');
                 }
+              }
                 echo "1";
             }
         }
@@ -2074,9 +2078,9 @@ class Produk extends CI_Controller
                       }
                   });
 
-            </script>    
-        </div>      
-  
+            </script>
+        </div>
+
         ";
     }
 
@@ -2149,7 +2153,7 @@ class Produk extends CI_Controller
                     </div>
                 </div>
             </div>
-        </div>   
+        </div>
 
         ";
     }
@@ -2165,11 +2169,11 @@ class Produk extends CI_Controller
         // print_r($txtTglMutasi);
         for($i=1; $i<=$jmlProduk; $i++){
             $cmbProduk = $this->input->post('cmbProduk_'.$i);
-            
+
             $addStok = $this->input->post('addStok_'.$i);
             $getPerusahaanGudang = $this->model_master->getPerusahaanGudangByGudang($cmbPerusahaanFrom,$cmbGudangFrom)->row();
             $jmlStok = $this->model_master->getStokPerusahaanGudangByProduk($cmbProduk,$getPerusahaanGudang->id)->row()->jmlStok;
-            
+
             if($cmbProduk == 0 || $cmbProduk == NULL || $cmbProduk == "NULL" || $cmbProduk == "0" || $cmbGudangFrom == 0 || $cmbGudangFrom == NULL || $cmbGudangFrom == "NULL" || $cmbGudangFrom == "0" || $addStok < 0 || $jmlStok < $addStok){
                 $insert = "";
                 echo "2";
@@ -2210,7 +2214,7 @@ class Produk extends CI_Controller
                         ->where('product_id', $cmbProduk)
                         ->where('perusahaan_gudang_id', $getPerusahaanGudangTo->id)
                         ->update('product_perusahaan_gudang');
-                    }  
+                    }
                     $this->db->set('stok',($getGudangFrom->stok - $addStok))
                     ->where('product_id', $cmbProduk)
                     ->where('perusahaan_gudang_id', $getPerusahaanGudang->id)
@@ -2221,12 +2225,12 @@ class Produk extends CI_Controller
                         $insert_opname_stok_bm = $this->db->set('product_id',$cmbProduk)->set('gudang_id',$cmbGudangTo)->set('perusahaan_id',$cmbPerusahaanFrom)->set('stock_input',$addStok)->set('note','Mutasi')->set('keterangan','Mutasi')->set('create_date',$txtTglMutasi)->set('create_user',$_SESSION['rick_auto']['username'])->insert('report_stok_bm_bl');
                         $insert_opname_stok_bl = $this->db->set('product_id',$cmbProduk)->set('gudang_id',$cmbGudangFrom)->set('perusahaan_id',$cmbPerusahaanFrom)->set('stock_input',"-".$addStok)->set('note','Mutasi')->set('keterangan','Mutasi')->set('create_date',$txtTglMutasi)->set('create_user',$_SESSION['rick_auto']['username'])->insert('report_stok_bm_bl');
                     }
-                    
+
                     $status = 1;
                 }
                 }
 
-            
+
             }
         }
         // echo "1";
@@ -2275,7 +2279,7 @@ class Produk extends CI_Controller
     //             if($jenis == "barcode"){
     //             $qtyOrder = $cekDataa->row()->qtySO + $getProdukByCodes->row()->isi;
     //             }else{
-    //             $qtyOrder = $cekDataa->row()->qtySO + 1;    
+    //             $qtyOrder = $cekDataa->row()->qtySO + 1;
     //             }
     //             $insert = $this->db->set('qtySO',$qtyOrder)->where('produk_id',$getProdukByCode->product_id)->update('stock_opname_detail_temp');
     //         }else{
@@ -2358,7 +2362,7 @@ class Produk extends CI_Controller
     //             if($jenis == "barcode"){
     //             $qtyOrder = $cekDataa->row()->qtySO + $getProdukByCodes->row()->isi;
     //             }else{
-    //             $qtyOrder = $cekDataa->row()->qtySO + 1;    
+    //             $qtyOrder = $cekDataa->row()->qtySO + 1;
     //             }
     //             $insert = $this->db->set('qtySO',$qtyOrder)->where('produk_id',$getProdukByCode->product_id)->where('so_id',$id)->update('stock_opname_detail');
     //         }else{
@@ -2489,7 +2493,7 @@ class Produk extends CI_Controller
     //              if($jenis == "barcode"){
     //             $qtyOrder = $cekDataa->row()->qty + $getProdukByCodes->row()->isi;
     //             }else{
-    //             $qtyOrder = $cekDataa->row()->qty + 1;    
+    //             $qtyOrder = $cekDataa->row()->qty + 1;
     //             }
     //             $insert = $this->db->set('qty',$qtyOrder)->where('produk_id',$getProdukByCode->product_id)->update('produk_beli_detail_temp');
     //         }else{
@@ -2567,7 +2571,7 @@ class Produk extends CI_Controller
     //             if($jenis == "barcode"){
     //             $qtyOrder = $cekDataa->row()->qty_receive + $getProdukByCodes->row()->isi;
     //             }else{
-    //             $qtyOrder = $cekDataa->row()->qty_receive + 1;    
+    //             $qtyOrder = $cekDataa->row()->qty_receive + 1;
     //             }
     //             //$qtyOrder = $cekDataa->row()->qty_receive + 1;
     //             $insert = $this->db->set('qty_receive',$qtyOrder)->where('produk_id',$getProdukByCode->product_id)->where('id',$cekDataa->row()->id)->update('produk_beli_detail');
