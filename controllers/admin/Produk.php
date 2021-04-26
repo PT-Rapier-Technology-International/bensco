@@ -1849,7 +1849,8 @@ class Produk extends CI_Controller
             // print_r($addStok);
             $note    = $this->input->post('note_'.$produk->id);
             if($addStok == null || $addStok == "null" || $getStok->row()->jmlStok + $addStok < 0){
-                echo "";
+                echo "2";
+                break;
             }else{
                 if($getStok->row()->jmlStok > null){
                     // print_r($getStok->row()->jmlStok );
@@ -1861,20 +1862,20 @@ class Produk extends CI_Controller
                     'perusahaan_gudang_id' => $id])->update('product_perusahaan_gudang', ['stok' => $stok]);
                     // $qUer = $this->db->set('stok',$addStok)->set('product_id',$produk->id)->set('perusahaan_gudang_id',$id)->insert('product_perusahaan_gudang');
                     if ($addStok != 0){
-                    $insert_opname_stok = $this->db->set('product_id',$produk->id)
-                    ->set('gudang_id',$getPP->gudang_id)->set('perusahaan_id',$getPP->perusahaan_id)
-                    ->set('qty_product',$getStok->row()->jmlStok)->set('stock_add',$addStok)->set('note',$note)
-                    ->set('create_date',date("Y-m-d H:i:s"))->set('create_user',$_SESSION['rick_auto']['username'])->insert('opname_stock');
-                    if($addStok >= 0){
-                    $insert_opname_stok_bm = $this->db->set('product_id',$produk->id)->set('gudang_id',$getPP->gudang_id)
-                    ->set('perusahaan_id',$getPP->perusahaan_id)->set('stock_input',$addStok)->set('note','Adjusment')
-                    ->set('keterangan','Adjusment Masuk ('.$note.')')->set('create_date',date("Y-m-d H:i:s"))
-                    ->set('create_user',$_SESSION['rick_auto']['username'])->insert('report_stok_bm_bl');
-                    }else{
-                    $insert_opname_stok_bl = $this->db->set('product_id',$produk->id)->set('gudang_id',$getPP->gudang_id)->set('perusahaan_id',$getPP->perusahaan_id)->set('stock_input',$addStok)->set('note','Adjusment')->set('keterangan','Adjusment Keluar ('.$note.')')->set('create_date',date("Y-m-d H:i:s"))->set('create_user',$_SESSION['rick_auto']['username'])->insert('report_stok_bm_bl');
-                  }
-                }
-              }else{
+                        $insert_opname_stok = $this->db->set('product_id',$produk->id)
+                        ->set('gudang_id',$getPP->gudang_id)->set('perusahaan_id',$getPP->perusahaan_id)
+                        ->set('qty_product',$getStok->row()->jmlStok)->set('stock_add',$addStok)->set('note',$note)
+                        ->set('create_date',date("Y-m-d H:i:s"))->set('create_user',$_SESSION['rick_auto']['username'])->insert('opname_stock');
+                        if($addStok >= 0){
+                            $insert_opname_stok_bm = $this->db->set('product_id',$produk->id)->set('gudang_id',$getPP->gudang_id)
+                            ->set('perusahaan_id',$getPP->perusahaan_id)->set('stock_input',$addStok)->set('note','Adjusment')
+                            ->set('keterangan','Adjusment Masuk ('.$note.')')->set('create_date',date("Y-m-d H:i:s"))
+                            ->set('create_user',$_SESSION['rick_auto']['username'])->insert('report_stok_bm_bl');
+                        }else{
+                            $insert_opname_stok_bl = $this->db->set('product_id',$produk->id)->set('gudang_id',$getPP->gudang_id)->set('perusahaan_id',$getPP->perusahaan_id)->set('stock_input',$addStok)->set('note','Adjusment')->set('keterangan','Adjusment Keluar ('.$note.')')->set('create_date',date("Y-m-d H:i:s"))->set('create_user',$_SESSION['rick_auto']['username'])->insert('report_stok_bm_bl');
+                        }
+                    }
+                }else{
                     // echo "Sempak";
                     $stok = $addStok;
                     // print_r($stok);
@@ -1884,12 +1885,15 @@ class Produk extends CI_Controller
                     // $qUer = $this->db->set('product_id',$produk->id)->set('perusahaan_gudang_id',$id)->set('stok',$addStok)->insert('product_perusahaan_gudang');
                     // print_r($stok);
                     if ($stok != 0){
-                    $insert_opname_stok = $this->db->set('product_id',$produk->id)->set('gudang_id',$getPP->gudang_id)->set('perusahaan_id',$getPP->perusahaan_id)->set('qty_product',0)->set('stock_add',$stok)->set('note',$note)->set('create_date',date("Y-m-d H:i:s"))->set('create_user',$_SESSION['rick_auto']['username'])->insert('opname_stock');
-                    $insert_opname_stok_bm = $this->db->set('product_id',$produk->id)->set('gudang_id',$getPP->gudang_id)->set('perusahaan_id',$getPP->perusahaan_id)->set('stock_input',$stok)->set('note','Adjusment')->set('keterangan','Adjusment Masuk ('.$note.')')->set('create_date',date("Y-m-d H:i:s"))->set('create_user',$_SESSION['rick_auto']['username'])->insert('report_stok_bm_bl');
+                        $insert_opname_stok = $this->db->set('product_id',$produk->id)->set('gudang_id',$getPP->gudang_id)->set('perusahaan_id',$getPP->perusahaan_id)->set('qty_product',0)->set('stock_add',$stok)->set('note',$note)->set('create_date',date("Y-m-d H:i:s"))->set('create_user',$_SESSION['rick_auto']['username'])->insert('opname_stock');
+                        $insert_opname_stok_bm = $this->db->set('product_id',$produk->id)->set('gudang_id',$getPP->gudang_id)->set('perusahaan_id',$getPP->perusahaan_id)->set('stock_input',$stok)->set('note','Adjusment')->set('keterangan','Adjusment Masuk ('.$note.')')->set('create_date',date("Y-m-d H:i:s"))->set('create_user',$_SESSION['rick_auto']['username'])->insert('report_stok_bm_bl');
+                    }
                 }
-              }
-                echo "1";
+                $msg = true;
             }
+        }
+        if($msg){
+            echo "1";
         }
     }
 
